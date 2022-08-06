@@ -1,0 +1,5 @@
+App\Entity\Commandes:
+  commandes{0..100}:
+    prix: '<numberBetween(0, 1000)>'
+    nbCommandesPasse: '<numerify()>'
+    etatDeLaCommande: "<randomElement(['acceptée', 'en cours de préparation', 'expédiée', 'remboursée'])>"

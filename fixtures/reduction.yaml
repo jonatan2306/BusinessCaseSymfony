@@ -1,0 +1,5 @@
+App\Entity\Reduction:
+  reduction{0..6}:
+    PourcentageReduction: "<randomElement(['15%', '30%', '50%', '60%'])>"
+    dateDebut: '<datetime()>'
+    dateFin: '<datetime()>'

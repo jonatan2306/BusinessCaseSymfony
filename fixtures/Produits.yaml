@@ -1,0 +1,13 @@
+App\Entity\Produits:
+  produits{0..60}:
+    description: '<sentence()>'
+    photo_produit: '<imageUrl()>'
+    prix: '<randomFloat()>'
+    nom: '<word()>'
+    marque: "<randomElement(['Royal Canin', 'Orijen', 'Hill's', 'Eukanuba', 'Seberus', 'Prestano', 'Cadilo', 'Happy Cat'])>"
+    quantite: '<numberBetween(0, 10)>'
+    categorieAppartenant: "<randomElement(['chiens', 'chats', 'soin', 'jouet'])>"
+
+
+
+

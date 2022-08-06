@@ -1,0 +1,12 @@
+parameters:
+    mdp: $2y$13$bUJJXSBIUATyCBtP/Y7xR.k.n7vWsavrkkQy7RpMYIYDAWfbZBMwu
+
+App\Entity\Clients:
+  clients{0..100}:
+    nomClient: '<firstName()>'
+    prenom: '<firstName()>'
+    email: '<safeEmail()>'
+    numTel: '<phoneNumber()>'
+    dateNaissance: '<dateTime()>'
+    totalDepenseSurLeSite: '<randomFloat(2, 10, 2000)>'
+    dateInscription: '<datetime()>'

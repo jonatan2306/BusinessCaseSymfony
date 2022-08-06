@@ -1,0 +1,4 @@
+App\Entity\Avis:
+  avis{0..100}:
+    commentaire: '<sentence()>'
+    note: '<numberBetween(1, 20)>'

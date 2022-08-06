@@ -1,0 +1,26 @@
+App\Entity\Marques:
+  marques_1:
+    nom: "Royal Canin"
+
+  marques_2:
+    nom: "Orijen"
+
+  marques_3:
+    nom: "Hill's"
+
+  marques_4:
+    nom: "Eukanuba"
+
+  marques-5:
+    nom: "Seberus"
+
+  marques-6:
+    nom: "Prestano"
+
+  marques-7:
+    nom: "Cadilo"
+
+  marques-8:
+    nom: "Happy Cat"
+
+    

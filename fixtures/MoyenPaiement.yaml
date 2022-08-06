@@ -1,0 +1,6 @@
+App\Entity\MoyenPaiement:
+  moyen_paiement_number_1:
+    nom: 'Carte Bancaire'
+
+  moyen_paiement_Number_2:
+    nom: 'Paypal'

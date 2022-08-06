@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- bootstrap reboot css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap-reboot.min.css"
+        integrity="sha512-ZJ+KmS7LSGuRKphz9V5eX99TPMci9Ngt5lCk0XFdYJmBg+ZDr/4r/HSsMEiUKmR7bxe1eAv768c2YuSl/OGiFw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- FIN bootstrap reboot css -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- ma feuille de style SCSS -->
+    <link rel="stylesheet" type="text/x-scss" href="style.scss">
+    <!-- fin de ma feuille de style SCSS -->
+
+    <!-- ma feuille de style -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- FIN de ma feuille de style -->
+
+    <title>BusnessCase</title>
+
+</head>
+
+<body>
+
+    <!------- HOME ------->
+    <div class="home">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse">
+                    <!-- PREMIERE LISTE UL -->
+                    <ul class="navbar-bav list-1-home">
+                        <!-- icon du site -->
+                        <li class="nav-item">
+                            <a class="navbar-brand">
+                                <img src="./assets/icons/icon-home.png" class="logo-home" alt="icon du site">
+                            </a>
+                        </li>
+                        <!-- la SearchBarre -->
+                        <li class="nav-item">
+                            <form class="d-flex" role="search">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            </form>
+                        </li>
+                    </ul>
+                    <div class="separement-nav">
+                        <!-- séparement UL -->
+                    </div>
+                    <!-- DEUXIEME LISTE UL -->
+                    <ul class="navbar-nav ml-auto list-2-home">
+                        <li class="nav-item">
+                            <a href="" class="btn">Nous contacter</a>
+                        </li>
+                        <li class="nav-item">
+                            <img src="./assets/icons/icon-mon-compte.png" class="img-mon-compte" alt="Mon compte">
+                            <p class="txtIconHome">Mon Compte</p>
+                        </li>
+                        <li class="nav-item">
+                            <img src="./assets" class="img-panier" alt="Mon panier">
+                            <p class="txtIconHome">Mon Panier</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!------- /HOME ------->
+
+    <!------- BANNIERE ------->
+    <div class="">
+        <img src="./assets/img/un-chat-qui-aime-un-beau-chien-golden-retriever.jpg" alt="">
+        <h2 class="...">Prenez soin de votre chien car il vous aime autant que vous </h2>
+    </div>
+    <!------- /BANNIERE ------>
+
+    <!------- CAROUSSEL ------->
+    <div class="slider">
+        <div class="slides">
+            <div class="slide"><img src="./assets/img/Carousel/bannière-carrousel-Royal-canin.png" alt="croquette chien"></div>
+            <div class="slide"><img src="./assets/img/Carousel/bannière-carrousel-chat.jpg" alt="croquette chat"></div>
+            <div class="slide"><img src="./assets/img/Carousel/bannière-carrousel-ultima.jpg" alt="croquette chien"></div> 
+            <div class="slide"><img src="./assets/img/Carousel/bannière-carrousel-orijen.png" alt="croquette chien"></div> 
+        </div>
+    </div>
+    <!-------- /CAROUSSEL ------->
+
+    <!------- NAVBAR ------->
+    <nav>
+        <div class="...">
+            <ul>
+                <li><img src="./assets/icons/icon-accueil.png" alt="icon accueil"></li>
+                <li><img src="./assets/icons/icon-chien.png" alt="icon chien"></li>
+                <li><img src="./assets/icons/icon-chat.png" alt="icon chat"></li>
+                <li><img src="./assets/icons/icon-soins.png" alt="icon des soins"></li>
+                <li><img src="./assets/icons/icon-jouet.png" alt="icon jouets"></li>
+                <li><img src="./assets/icons/icon-dashbord.png" alt="icon dashbord"></li>
+                <li>marques</li>
+                <li>avis</li>
+            </ul>
+
+        </div>
+    </nav>
+    <!-------/NAVBAR ------->
+
+    <!------- MAIN ------->
+
+    <!-- presentation animalerie -->
+
+    <div class="...">
+        <h3 class="...">Chez la <span>Nîme'Alerie</span></h3>
+        <p class="...">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur incidunt officia ab
+            voluptas. Illum veniam, consequatur distinctio nisi, eius perspiciatis nemo repellendus ex libero blanditiis
+            ipsa sapiente totam non laboriosam alias soluta eos aspernatur esse?</p>
+    </div>
+
+    <!-- alimentation chien -->
+    <div class="...">
+
+        <img src="assets/img/image-categorie-chien.png" class="img-categorie-chien" alt="categorie chien">
+
+        <div class="section-chien">
+            <h3 class="...">Alimentation pour chien</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae reiciendis sint neque nostrum excepturi
+                ex iste, odio voluptatum labore. Quo nam accusamus tempora similique cum porro eaque ipsam nihil
+                expedita iusto! Temporibus corporis minima possimus.</p>
+        </div>
+        <!-- bouton -->
+        <div class="...">
+            <a href="..." class="" type="button">en savoir plus</a>
+        </div>
+
+    </div>
+
+    <!-- alimentation chat -->
+    <div class="section-chat">
+
+        <img src="assets/img/img-categorie-chat.jpg" class="img-categorie-chat" alt="">
+        <div class="...">
+            <h3 class="...">Alimentation pour chat</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae reiciendis sint neque nostrum excepturi
+                ex iste, odio voluptatum labore. Quo nam accusamus tempora similique cum porro eaque ipsam nihil
+                expedita iusto! Temporibus corporis minima possimus.</p>
+            <!-- bouton -->
+            <a href="" class="..." type="button">en savoir plus</a>
+        </div>
+
+    </div>
+
+    <!-- spacechien -->
+    <div class="section-spacechien">
+
+        <div class="...">
+            <img src="assets/img/SpaceChien/img-categorie-spacechien.jfif" alt="">
+        </div>
+
+        <div class="...">
+            <h3 class="...">Envoyer votre chien dans l'espace</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae reiciendis sint neque nostrum excepturi
+                ex iste, odio voluptatum labore. Quo nam accusamus tempora similique cum porro eaque ipsam nihil
+                expedita iusto! Temporibus corporis minima possimus.</p>
+
+            <a href="" class="" type="button">en savoir plus</a>
+        </div>
+
+    </div>
+
+    <!-- PARTIE REASSURANCE CLIENT -->
+
+    <div class="...">
+
+        <div class="...">
+            <div class="...">
+                <img src="./assets/icons/truck_transport_vehicle_icon_206459.png" alt="">
+                <p class="...">Livraison 24/72h Gratuite à partir de ... d'achats en france métropolitaine</p>
+            </div>
+
+            <div class="...">
+                <img src="./assets/icons/locked-padlock-rounded-black-tool-security-interface-symbol_icon-icons.com_54497.png"
+                    alt="">
+                <p class="...">Paiement sécurisé Visa,Mastercard,American Express, Paypal, Chèque ou virement</p>
+            </div>
+
+            <div class="...">
+                <img src="./assets/icons/refresh-page-arrow-button_icon-icons.com_53909.png" alt="">
+                <p class="...">Satisfaction garantie Vous pouvez nous retourner vos articles 14 jours après la commande
+                </p>
+            </div>
+
+            <div class="...">
+                <img src="./assets/icons/source_icons_multi-bubble.svg" alt="">
+                <p class="...">Tchat 7j/7 nous répondons à vos questions en direct de 8h30 à 22h30
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- /PARTIE REASSURANCE CLIENT -->
+
+    <!------- /MAIN ------->
+
+    <!------- FOOTER -------->
+
+    <div class="...">
+
+        <div class="...">
+            <img src="./assets/icons/icon-home.png" alt="icon du site">
+            <h1>la <span>nîme'alerie</span></h1>
+        </div>
+
+        <div class="...">
+            <p>Mention Légales</p>
+        </div>
+
+        <div class="...">
+            <p class="...">NOUS SUIVRE</p>
+        </div>
+
+        <div class="social-media">
+            <a href="#"><img src="./assets/icons/icon-instagram.png" alt="icon instagram"></a>
+            <a href="#"><img src="./assets/icons/icon-linkedin.png" alt="icon linkedin"></a>
+            <a href="#"><img src="./assets/icons/icon-github.png" alt="icon github"></a>
+        </div>
+
+    </div>
+
+    <!------- /FOOTER ------->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

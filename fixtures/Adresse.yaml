@@ -1,0 +1,5 @@
+App\Entity\Adresse:
+  adresse{0..100}:
+    codePostale: '<postcode()>'
+    Commune: '<city()>'
+    Pays: '<state()>'

@@ -1,0 +1,5 @@
+App\Entity\Panier:
+  panier{0..100}:
+    delaiLivraison: '<numberBetween(1, 7)>'
+    nombreProduit: '<numerify()>'
+    prixPanier: '<randomFloat()>'

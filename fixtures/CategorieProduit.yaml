@@ -1,0 +1,36 @@
+App\Entity\Categorie_produit:
+  categorie_produit{0..8}:
+  
+# PARTIE CHIEN
+    nomCategorie: 'Croquette pour chiens'
+    typeCategorie: 'chien'
+
+  categorie_produit_1:
+    nomCategorie: 'Croquette pour chiens stérilisé'
+    typeCategorie: 'chien'
+
+  categorie_produit_2:
+    nomCategorie: 'Prenez Soin de votre chiens'
+    typeCategorie: 'chien'
+
+  categorie_produit_3:
+    nomCategorie: 'Jouets pour chiens'
+    typeCategorie: 'chien'
+
+# PARTIE CHAT
+  categorie_produit_4:
+    nomCategorie: 'Croquettes pour chats' 
+    typeCategorie: 'chat'
+
+  categorie_produit_5:
+    nomCategorie: 'Croquettes pour chats Stérilisés' 
+    typeCategorie: 'chat'
+
+  categorie_produit_6:
+    nomCategorie: 'Prenez Soin de votre chat' 
+    typeCategorie: 'chat'
+
+  categorie_produit_7:
+    nomCategorie: 'Jouets pour chats'
+    typeCategorie: 'chat'
+
