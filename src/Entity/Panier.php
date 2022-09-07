@@ -27,13 +27,8 @@ class Panier
     #[ORM\Column(nullable: true)]
     private ?float $prixProduit = null;
 
-    #[ORM\ManyToMany(targetEntity: Produits::class, inversedBy: 'paniers')]
-    private Collection $produits;
 
-    public function __construct()
-    {
-        $this->produits = new ArrayCollection();
-    }
+
 
     public function getId(): ?int
     {
@@ -84,30 +79,6 @@ class Panier
     public function setPrixProduit(?float $prixProduit): self
     {
         $this->prixProduit = $prixProduit;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Produits>
-     */
-    public function getProduits(): Collection
-    {
-        return $this->produits;
-    }
-
-    public function addProduit(Produits $produit): self
-    {
-        if (!$this->produits->contains($produit)) {
-            $this->produits->add($produit);
-        }
-
-        return $this;
-    }
-
-    public function removeProduit(Produits $produit): self
-    {
-        $this->produits->removeElement($produit);
 
         return $this;
     }

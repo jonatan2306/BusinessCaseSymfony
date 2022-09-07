@@ -14,6 +14,13 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method CategorieProduit[]    findAll()
  * @method CategorieProduit[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+#[ORM\Entity(repositoryClass: CategorieProduitRepository::class)]
+#[ApiResource(
+    collectionOperations: [],
+    itemOperations: [
+        "get" => ["security" => "is_granted('ROLE_ADMIN')"],
+        ]
+)]
 class CategorieProduitRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

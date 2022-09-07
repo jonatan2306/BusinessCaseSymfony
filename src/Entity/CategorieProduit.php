@@ -18,20 +18,15 @@ class CategorieProduit
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 10)]
-    private ?string $type = '';
+    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: SousCategory::class)]
+    private Collection $sousCategories;
 
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $nomCategorie = null;
-
-    #[ORM\Column(length: 10)]
-    private ?string $typeCategorie = null;
-
-    #[ORM\OneToMany(mappedBy: 'categorieProduit', targetEntity: Produits::class)]
+    #[ORM\ManyToMany(targetEntity: Produits::class, mappedBy: 'Categorie')]
     private Collection $produits;
 
     public function __construct()
     {
+        $this->sousCategories = new ArrayCollection();
         $this->produits = new ArrayCollection();
     }
 
@@ -52,40 +47,39 @@ class CategorieProduit
         return $this;
     }
 
-    public function getType(): string
+
+    /**
+     * @return Collection<int, SousCategory>
+     */
+    public function getSousCategories(): Collection
     {
-        return $this->type;
+        return $this->sousCategories;
     }
 
-    public function setType(string $type): self
+    public function addSousCategory(SousCategory $sousCategory): self
     {
-        $this->type = $type;
+        if (!$this->sousCategories->contains($sousCategory)) {
+            $this->sousCategories->add($sousCategory);
+            $sousCategory->setCategorie($this);
+        }
 
         return $this;
     }
 
-    public function getNomCategorie(): ?string
+    public function removeSousCategory(SousCategory $sousCategory): self
     {
-        return $this->nomCategorie;
-    }
-
-    public function setNomCategorie(?string $nomCategorie): self
-    {
-        $this->nomCategorie = $nomCategorie;
+        if ($this->sousCategories->removeElement($sousCategory)) {
+            // set the owning side to null (unless already changed)
+            if ($sousCategory->getCategorie() === $this) {
+                $sousCategory->setCategorie(null);
+            }
+        }
 
         return $this;
     }
-
-    public function getTypeCategorie(): ?string
-    {
-        return $this->typeCategorie;
-    }
-
-    public function setTypeCategorie(string $typeCategorie): self
-    {
-        $this->typeCategorie = $typeCategorie;
-
-        return $this;
+    // cette function nous permet de stringifier une valeur dans une entité
+    public function __toString(){
+        return $this->nom;
     }
 
     /**
@@ -100,7 +94,7 @@ class CategorieProduit
     {
         if (!$this->produits->contains($produit)) {
             $this->produits->add($produit);
-            $produit->setCategorieProduit($this);
+            $produit->addCategorie($this);
         }
 
         return $this;
@@ -109,10 +103,7 @@ class CategorieProduit
     public function removeProduit(Produits $produit): self
     {
         if ($this->produits->removeElement($produit)) {
-            // set the owning side to null (unless already changed)
-            if ($produit->getCategorieProduit() === $this) {
-                $produit->setCategorieProduit(null);
-            }
+            $produit->removeCategorie($this);
         }
 
         return $this;

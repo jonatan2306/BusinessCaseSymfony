@@ -63,4 +63,24 @@ class PanierRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function getPourcentagePanierAbandonne(): array
+{
+    $total = $this->createQueryBuilder('panier')
+        ->select('count(panier) AS total')
+        ->getQuery()
+       ->getOneOrNullResult();
+
+    $abandoned = $this->createQueryBuilder('panier')
+        ->select('count(panier) AS Abbandon')
+        ->join('panier.commandStatus', 'commandStatus')
+        ->where('commandStatus.label = :annul')
+        ->setParameter('annul', 'Annuler')
+        ->getQuery()
+        ->getOneOrNullResult();
+
+   $result['abandon panier %'] = round(($abandoned['Abbandon'] / $total['total']) * 100, 2);
+
+    return $result;
+}
 }

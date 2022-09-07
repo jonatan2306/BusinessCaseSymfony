@@ -19,36 +19,30 @@ class Commandes
     #[ORM\Column(nullable: true)]
     private ?float $prix = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $nomClient = null;
-
-    #[ORM\Column(length: 50)]
-    private ?string $email = null;
-
-    #[ORM\Column]
-    private ?int $nbCommandesPasse = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateInscription = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?float $totalDepenseSurLeSite = null;
-
-    #[ORM\Column(length: 50)]
-    private ?string $etatDeLaCommande = null;
-
-    #[ORM\OneToMany(mappedBy: 'commandes', targetEntity: Adresse::class)]
-    private Collection $adresses;
-
     #[ORM\ManyToOne(inversedBy: 'commandes')]
     private ?MoyenPaiement $moyenPaiement = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Panier $panier = null;
+    #[ORM\ManyToOne(inversedBy: 'commandes')]
+    private ?User $user = null;
+
+    #[ORM\ManyToOne(inversedBy: 'commandes')]
+    private ?Adresse $adresse = null;
+
+    #[ORM\ManyToMany(targetEntity: Produits::class, inversedBy: 'commandes')]
+    private Collection $produit;
+
+    #[ORM\ManyToOne(inversedBy: 'commandes')]
+    private ?Statut $statut = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $createdAt = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $updatedAt = null;
 
     public function __construct()
     {
-        $this->adresses = new ArrayCollection();
+        $this->produit = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -68,108 +62,6 @@ class Commandes
         return $this;
     }
 
-    public function getNomClient(): ?string
-    {
-        return $this->nomClient;
-    }
-
-    public function setNomClient(string $nomClient): self
-    {
-        $this->nomClient = $nomClient;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getNbCommandesPasse(): ?int
-    {
-        return $this->nbCommandesPasse;
-    }
-
-    public function setNbCommandesPasse(int $nbCommandesPasse): self
-    {
-        $this->nbCommandesPasse = $nbCommandesPasse;
-
-        return $this;
-    }
-
-    public function getDateInscription(): ?\DateTimeInterface
-    {
-        return $this->dateInscription;
-    }
-
-    public function setDateInscription(?\DateTimeInterface $dateInscription): self
-    {
-        $this->dateInscription = $dateInscription;
-
-        return $this;
-    }
-
-    public function getTotalDepenseSurLeSite(): ?float
-    {
-        return $this->totalDepenseSurLeSite;
-    }
-
-    public function setTotalDepenseSurLeSite(?float $totalDepenseSurLeSite): self
-    {
-        $this->totalDepenseSurLeSite = $totalDepenseSurLeSite;
-
-        return $this;
-    }
-
-    public function getEtatDeLaCommande(): ?string
-    {
-        return $this->etatDeLaCommande;
-    }
-
-    public function setEtatDeLaCommande(string $etatDeLaCommande): self
-    {
-        $this->etatDeLaCommande = $etatDeLaCommande;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Adresse>
-     */
-    public function getAdresses(): Collection
-    {
-        return $this->adresses;
-    }
-
-    public function addAdress(Adresse $adress): self
-    {
-        if (!$this->adresses->contains($adress)) {
-            $this->adresses->add($adress);
-            $adress->setCommandes($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAdress(Adresse $adress): self
-    {
-        if ($this->adresses->removeElement($adress)) {
-            // set the owning side to null (unless already changed)
-            if ($adress->getCommandes() === $this) {
-                $adress->setCommandes(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getMoyenPaiement(): ?MoyenPaiement
     {
         return $this->moyenPaiement;
@@ -182,15 +74,88 @@ class Commandes
         return $this;
     }
 
-    public function getPanier(): ?Panier
+    public function getUser(): ?User
     {
-        return $this->panier;
+        return $this->user;
     }
 
-    public function setPanier(?Panier $panier): self
+    public function setUser(?User $user): self
     {
-        $this->panier = $panier;
+        $this->user = $user;
 
         return $this;
     }
+
+    public function getAdresse(): ?Adresse
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?Adresse $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Produits>
+     */
+    public function getProduit(): Collection
+    {
+        return $this->produit;
+    }
+
+    public function addProduit(Produits $produit): self
+    {
+        if (!$this->produit->contains($produit)) {
+            $this->produit->add($produit);
+        }
+
+        return $this;
+    }
+
+    public function removeProduit(Produits $produit): self
+    {
+        $this->produit->removeElement($produit);
+
+        return $this;
+    }
+
+    public function getStatut(): ?Statut
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?Statut $statut): self
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
 }

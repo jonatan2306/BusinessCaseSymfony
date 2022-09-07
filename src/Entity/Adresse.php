@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AdresseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AdresseRepository::class)]
@@ -22,8 +24,13 @@ class Adresse
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $Pays = null;
 
-    #[ORM\ManyToOne(inversedBy: 'adresses')]
-    private ?Commandes $commandes = null;
+    #[ORM\OneToMany(mappedBy: 'adresse', targetEntity: Commandes::class)]
+    private Collection $commandes;
+
+    public function __construct()
+    {
+        $this->commandes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -66,15 +73,34 @@ class Adresse
         return $this;
     }
 
-    public function getCommandes(): ?Commandes
+    /**
+     * @return Collection<int, Commandes>
+     */
+    public function getCommandes(): Collection
     {
         return $this->commandes;
     }
 
-    public function setCommandes(?Commandes $commandes): self
+    public function addCommande(Commandes $commande): self
     {
-        $this->commandes = $commandes;
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes->add($commande);
+            $commande->setAdresse($this);
+        }
 
         return $this;
     }
+
+    public function removeCommande(Commandes $commande): self
+    {
+        if ($this->commandes->removeElement($commande)) {
+            // set the owning side to null (unless already changed)
+            if ($commande->getAdresse() === $this) {
+                $commande->setAdresse(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

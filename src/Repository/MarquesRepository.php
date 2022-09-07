@@ -14,6 +14,28 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Marques[]    findAll()
  * @method Marques[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+#[ORM\Entity(repositoryClass: MarquesRepository::class)]
+#[ApiResource(
+    collectionOperations: ['get' => [
+        // Limit access to get item operation only if the logged user is one of:
+        // - have ROLE_ADMIN
+        'security' => '
+            is_granted("ROLE_ADMIN")  
+            or  
+            is_granted("ROLE_STATS")
+        ',
+    ],
+],
+itemOperations: [
+    'get' => [
+    // Limit access to get item operation only if the logged user is one of:
+    // - have ROLE_ADMIN
+    'security' => '
+        is_granted("ROLE_ADMIN")  or  is_granted("ROLE_STATS")
+    ',
+    ],
+],
+)]
 class MarquesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

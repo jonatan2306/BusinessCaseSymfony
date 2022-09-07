@@ -28,34 +28,35 @@ class Produits
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $titre = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $marque = null;
-
     #[ORM\Column(nullable: true)]
     private ?int $quantite = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $categorieAppartenant = null;
-
     #[ORM\OneToMany(mappedBy: 'produits', targetEntity: Avis::class)]
     private Collection $avis;
-
-    #[ORM\ManyToMany(targetEntity: Panier::class, mappedBy: 'produits')]
-    private Collection $paniers;
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
     private ?Reduction $reduction = null;
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
-    private ?CategorieProduit $categorieProduit = null;
-
-    #[ORM\ManyToOne(inversedBy: 'produits')]
     private ?Marques $marques = null;
+
+    #[ORM\Column]
+    private ?float $prixHT = null;
+
+    #[ORM\Column]
+    private ?bool $actif = null;
+
+    #[ORM\ManyToMany(targetEntity: CategorieProduit::class, inversedBy: 'produits')]
+    private Collection $Categorie;
+
+    #[ORM\ManyToMany(targetEntity: Commandes::class, mappedBy: 'produit')]
+    private Collection $commandes;
 
     public function __construct()
     {
         $this->avis = new ArrayCollection();
-        $this->paniers = new ArrayCollection();
+        $this->Categorie = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -111,17 +112,6 @@ class Produits
         return $this;
     }
 
-    public function getMarque(): ?string
-    {
-        return $this->marque;
-    }
-
-    public function setMarque(?string $marque): self
-    {
-        $this->marque = $marque;
-
-        return $this;
-    }
 
     public function getQuantite(): ?int
     {
@@ -135,17 +125,7 @@ class Produits
         return $this;
     }
 
-    public function getCategorieAppartenant(): ?string
-    {
-        return $this->categorieAppartenant;
-    }
 
-    public function setCategorieAppartenant(?string $categorieAppartenant): self
-    {
-        $this->categorieAppartenant = $categorieAppartenant;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Avis>
@@ -177,33 +157,6 @@ class Produits
         return $this;
     }
 
-    /**
-     * @return Collection<int, Panier>
-     */
-    public function getPaniers(): Collection
-    {
-        return $this->paniers;
-    }
-
-    public function addPanier(Panier $panier): self
-    {
-        if (!$this->paniers->contains($panier)) {
-            $this->paniers->add($panier);
-            $panier->addProduit($this);
-        }
-
-        return $this;
-    }
-
-    public function removePanier(Panier $panier): self
-    {
-        if ($this->paniers->removeElement($panier)) {
-            $panier->removeProduit($this);
-        }
-
-        return $this;
-    }
-
     public function getReduction(): ?Reduction
     {
         return $this->reduction;
@@ -216,17 +169,6 @@ class Produits
         return $this;
     }
 
-    public function getCategorieProduit(): ?CategorieProduit
-    {
-        return $this->categorieProduit;
-    }
-
-    public function setCategorieProduit(?CategorieProduit $categorieProduit): self
-    {
-        $this->categorieProduit = $categorieProduit;
-
-        return $this;
-    }
 
     public function getMarques(): ?Marques
     {
@@ -236,6 +178,81 @@ class Produits
     public function setMarques(?Marques $marques): self
     {
         $this->marques = $marques;
+
+        return $this;
+    }
+
+    public function getPrixHT(): ?float
+    {
+        return $this->prixHT;
+    }
+
+    public function setPrixHT(float $prixHT): self
+    {
+        $this->prixHT = $prixHT;
+
+        return $this;
+    }
+
+    public function isActif(): ?bool
+    {
+        return $this->actif;
+    }
+
+    public function setActif(bool $actif): self
+    {
+        $this->actif = $actif;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CategorieProduit>
+     */
+    public function getCategorie(): Collection
+    {
+        return $this->Categorie;
+    }
+
+    public function addCategorie(CategorieProduit $categorie): self
+    {
+        if (!$this->Categorie->contains($categorie)) {
+            $this->Categorie->add($categorie);
+        }
+
+        return $this;
+    }
+
+    public function removeCategorie(CategorieProduit $categorie): self
+    {
+        $this->Categorie->removeElement($categorie);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commandes>
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commandes $commande): self
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes->add($commande);
+            $commande->addProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commandes $commande): self
+    {
+        if ($this->commandes->removeElement($commande)) {
+            $commande->removeProduit($this);
+        }
 
         return $this;
     }
