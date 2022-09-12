@@ -27,6 +27,12 @@ class Adresse
     #[ORM\OneToMany(mappedBy: 'adresse', targetEntity: Commandes::class)]
     private Collection $commandes;
 
+    #[ORM\Column(length: 255)]
+    private ?string $adresse = null;
+
+    #[ORM\ManyToOne(inversedBy: 'adresses')]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
@@ -103,4 +109,32 @@ class Adresse
         return $this;
     }
 
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+    
+    public function __toString(){
+        return $this->adresse;
+    }
+ 
 }

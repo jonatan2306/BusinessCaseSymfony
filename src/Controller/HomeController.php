@@ -13,15 +13,11 @@ class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
     public function index(
-        ProduitsRepository $produitsRepository,
-        MarquesRepository $marquesRepository,
         CategorieProduitRepository $categorieProduitRepository
     ): Response
     {
         return $this->render('home/index.html.twig', [
-            'categorieProduit' => $categorieProduitRepository->getGroupedByCategorie(),
-            'tousLesProduits' => $produitsRepository->findAll(),
-            'toutesLesMarques' => $marquesRepository->findAll()
+            'categories' => $categorieProduitRepository->findAll()
         ]);
     }
 }

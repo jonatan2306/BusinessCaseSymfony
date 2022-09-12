@@ -6,6 +6,7 @@ use App\Entity\CategorieProduit;
 use App\Entity\Commandes;
 use App\Entity\Produits;
 use App\Entity\SousCategory;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -25,6 +26,10 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
+        
+        if($this->getUser() === null){
+            return $this->redirect('/login');
+        }
         $url = $this->adminUrlGenerator
             ->setController(UserCrudController::class)
             ->generateUrl();
@@ -43,6 +48,13 @@ class DashboardController extends AbstractDashboardController
     {
         //Créer un Dashboard (Back-Office)
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        // Créer des menu pour les user
+        yield MenuItem::section('utilisateur');
+        yield MenuItem::subMenu('Actions', 'fas fa-bars')->setSubItems([
+            // Créer des sous-menu pour les user
+            MenuItem::linkToCrud('Créer un utilisateur', 'fas fa-plus-circle', User::class)->setAction('new'),
+            MenuItem::linkToCrud('Liste des utilisateurs', 'fas fa-eye', User::class)
+        ]);
         //Créer une section pour les  Categories
         yield MenuItem::section('Categories');
         // Créer des menu pour les categories

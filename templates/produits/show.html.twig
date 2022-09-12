@@ -28,23 +28,13 @@
                 <td>{{ produit.titre }}</td>
             </tr>
             <tr>
-                <th>Marque</th>
-                <td>{{ produit.marque }}</td>
-            </tr>
-            <tr>
                 <th>Quantite</th>
                 <td>{{ produit.quantite }}</td>
-            </tr>
-            <tr>
-                <th>CategorieAppartenant</th>
-                <td>{{ produit.categorieAppartenant }}</td>
             </tr>
         </tbody>
     </table>
 
     <a href="{{ path('app_produits_index') }}">back to list</a>
 
-    <a href="{{ path('app_produits_edit', {'id': produit.id}) }}">edit</a>
 
-    {{ include('produits/_delete_form.html.twig') }}
 {% endblock %}

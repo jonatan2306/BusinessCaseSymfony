@@ -40,7 +40,7 @@ class ProduitsCrudController extends AbstractCrudController
     {
         return [
             // le "hideOnForm" sert a ce que l'id du produit ne sois pas visible dans le tableau bootstrap
-            IdField::new('id')->hideOnForm(),
+            IdField::new('id')->hideOnForm()->hideOnDetail(),
             TextField::new('titre'),
             TextEditorField::new('description'),
             ImageField::new('photoProduit')

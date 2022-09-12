@@ -18,7 +18,7 @@ class SousCategoryCrudController extends AbstractCrudController
     {
         return [
             // "sert a ce que l'ID ne sois pas visible dans le formulaire"
-            IdField::new('id')->hideOnForm(),
+            IdField::new('id')->hideOnForm()->hideOnDetail(),
             TextField::new('nom'),
             // sert relier des entité entre elle
             AssociationField::new('categorie'),

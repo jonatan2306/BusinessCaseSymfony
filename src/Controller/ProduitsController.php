@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Produits;
 use App\Form\ProduitsType;
 use App\Repository\ProduitsRepository;
+use App\Repository\CategorieProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +21,17 @@ class ProduitsController extends AbstractController
             'produits' => $produitsRepository->findAll(),
         ]);
     }
+    
+    #[Route('/{category}', name: 'app_produits_index_by_category', methods: ['GET'])]
+    // cette fonction vas nous permettre de récupérer tous lesproduits de chaqque categorie
+    public function showByCategory(ProduitsRepository $produitsRepository, $category, CategorieProduitRepository $categorieProduitRepository): Response
+    {
+        // je récupère tous les produits qui sont ssociée a la categorie que l'on veux
 
+        return $this->render('produits/index.html.twig', [
+            'produits' => $categorieProduitRepository->findOneBy(['id' => $category])->getProduits(),
+        ]);
+    }
     #[Route('/new', name: 'app_produits_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ProduitsRepository $produitsRepository): Response
     {

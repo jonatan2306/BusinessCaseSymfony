@@ -1,0 +1,63 @@
+
+<header class="header sticky-top">
+<nav class="navbar navbar-expand-lg" id="navbar">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href={{path('app_home')}}>Accueil</a>
+        </li>
+            {% for categorie in categories %}
+        {# si les categories cotient une sous-categorie alors j'affiche la categorie uniquement #}
+        <li class="nav-item">
+          <a class="nav-link"
+            href={{path('app_produits_index_by_category', {category: categorie.id})}}>{{categorie.nom}}</a>
+        </li>
+         {% endfor %}
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+      <ul class="navbar-nav">
+        {% if app.user %}
+        <li class="nav-item">
+          {# je lui renseigne le chemin path logout pour qu'il puisse se déconnecter #}
+          <a class="nav-link" href={{path('logout')}}>Déconnexion</a>
+        </li>
+        {# je lui renseigne le chemin path logout pour qu'il puisse se déconnecter #}
+        {% if app.user.roles[0] is same as('ROLE_USER') %}
+                <li class="nav-item">
+          <a class="nav-link" href={{path('logout')}}>        
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+          </svg>
+          </a>
+        </li>
+        {% else %}
+        <a class="nav-link" href={{path('admin')}}>Administration</a>
+        {% endif %}
+        </li>
+        {% else %}
+        <li class="nav-item">
+          {# je lui renseigne login path pour qu'il puisse rentrer le login et son mot de passe  #}
+          <a class="nav-link" href={{path('login')}}>Connexion</a>
+        </li>
+        {% endif %}
+        {% if app.user is same as(null) %}
+        <li class="nav-item">
+          {# je lui renseigne login path pour qu'il puisse rentrer le lopgin et son mot de passe  #}
+          <a class="nav-link" href={{path('app_register')}}>Inscription</a>
+        </li>
+        {% endif %}
+         <li class="nav-item">
+          <a class="nav-link" href={{path('app_register')}}>        
+           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check-fill" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+          </svg> </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header>
