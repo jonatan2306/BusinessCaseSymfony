@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccountController!{% endblock %}
+
+{% block body %}
+
+<div>
+    <div>
+        Que voulez-vous faire ?
+    </div>
+        <ul>
+            <li><a href="/">Retourner sur le site</a></li>
+            <li><a href={{path('app_adresse_index')}}>Voir mes adresses</a></li>
+            <li><a href={{path('app_moyen_paiement_index')}}>Voir mes moyens de paiement</a></li>
+            <li><a href={{path('app_commandes_index')}}>Voir mes commandes</a></li>
+            <li><a href={{path('app_user_index')}}>Voir mes informations de compte</a></li>
+        </ul>
+    <div>
+
+    </div>
+</div>
+{% endblock %}

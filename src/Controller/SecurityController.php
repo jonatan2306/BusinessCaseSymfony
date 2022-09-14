@@ -25,7 +25,7 @@ class SecurityController extends AbstractController
              // the URL users are redirected to after the login (default: '/admin')
               //quand il se connecte, si est connecté en tant qu'Admin je le redirige vers la route admin 
             //  si nn je le redirige vers l'accueil
-             'target_path' => $this->getUser() !== null && $this->getUser()->getRoles()[0] === 'ROLE_ADMIN' ? $this->redirectToRoute('admin') : $this->redirectToRoute('app_home'),
+             'target_path' => $this->redirectToRoute('app_home'),
             // OPTIONAL parameters to customize the login form:
 
             // the translation_domain to use (define this option only if you are

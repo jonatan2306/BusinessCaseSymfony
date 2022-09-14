@@ -1,8 +1,4 @@
 @import "bootstrap/css/bootstrap.min.css";
 
 
-/*              HEADER               */
-#navbar {
-    background-color: #fff !important;
-    transition: all .3s ease-out;
-}
+

@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BasketController!{% endblock %}
+
+{% block body %}
+ <section class="bg-light p-3">
+        <h1>Votre panier</h1>
+    </section>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Prix</th>
+                <th>Quantité</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {# je boucle sur tous les élémpents du panier pour les afficher #}
+            {% for element in dataPanier %}
+                <tr>
+                    <td>{{ element.produit.nom }}</td>
+                    <td class="text-end">{{ element.produit.price }} €</td>
+                    <td>{{ element.quantite }}</td>
+                    <td class="text-end">{{ element.quantite * element.produit.price }} €</td>
+                    <td>
+                        <a href="{{path("app_basket_add", {id: element.produit.id})}}" class="btn btn-success">
+                            <i class="bi bi-cart-plus"></i>
+                        </a>
+                        <a href="{{path("app_basket_remove", {id: element.produit.id})}}" class="btn btn-warning">
+                            <i class="bi bi-cart-dash"></i>
+                        </a>
+                        <a href="{{path("app_basket_delete", {id: element.produit.id})}}" class="btn btn-danger">
+                            <i class="bi bi-cart-x"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">Votre panier est vide</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        {# tfoot permet de suprimer tous le panier #}
+        <tfoot>
+            <tr>
+                <td colspan="3">Total</td>
+                <td class="text-end">{{ total }} €</td>
+                <td>
+                    <a href="{{path("app_basket_delete_all")}}" class="btn btn-danger">
+                        <i class="bi bi-cart-x"></i>
+                    </a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <a href="{{path("app_checkout")}}" class="btn btn-danger">
+                        <i class="bi bi-cart-x"></i>
+    </a>
+{% endblock %}
