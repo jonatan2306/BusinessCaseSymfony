@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\MoyenPaiement;
 use App\Form\MoyenPaiementType;
+use App\Repository\CategorieProduitRepository;
 use App\Repository\MoyenPaiementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,15 +15,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class MoyenPaiementController extends AbstractController
 {
     #[Route('/', name: 'app_moyen_paiement_index', methods: ['GET'])]
-    public function index(MoyenPaiementRepository $moyenPaiementRepository): Response
+    public function index(MoyenPaiementRepository $moyenPaiementRepository,
+                          CategorieProduitRepository $categorieProduitRepository
+
+    ): Response
     {
         return $this->render('moyen_paiement/index.html.twig', [
             'moyen_paiements' => $moyenPaiementRepository->findAll(),
+            'categories' => $categorieProduitRepository->findAll()
+
         ]);
     }
 
     #[Route('/new', name: 'app_moyen_paiement_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, MoyenPaiementRepository $moyenPaiementRepository): Response
+    public function new(Request $request, MoyenPaiementRepository $moyenPaiementRepository,
+                        CategorieProduitRepository $categorieProduitRepository
+
+    ): Response
     {
         $moyenPaiement = new MoyenPaiement();
         $form = $this->createForm(MoyenPaiementType::class, $moyenPaiement);
@@ -37,19 +46,29 @@ class MoyenPaiementController extends AbstractController
         return $this->renderForm('moyen_paiement/new.html.twig', [
             'moyen_paiement' => $moyenPaiement,
             'form' => $form,
+            'categories' => $categorieProduitRepository->findAll()
+
         ]);
     }
 
     #[Route('/{id}', name: 'app_moyen_paiement_show', methods: ['GET'])]
-    public function show(MoyenPaiement $moyenPaiement): Response
+    public function show(MoyenPaiement $moyenPaiement,
+                         CategorieProduitRepository $categorieProduitRepository
+
+    ): Response
     {
         return $this->render('moyen_paiement/show.html.twig', [
             'moyen_paiement' => $moyenPaiement,
+            'categories' => $categorieProduitRepository->findAll()
+
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_moyen_paiement_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, MoyenPaiement $moyenPaiement, MoyenPaiementRepository $moyenPaiementRepository): Response
+    public function edit(Request $request, MoyenPaiement $moyenPaiement, MoyenPaiementRepository $moyenPaiementRepository,
+                         CategorieProduitRepository $categorieProduitRepository
+
+    ): Response
     {
         $form = $this->createForm(MoyenPaiementType::class, $moyenPaiement);
         $form->handleRequest($request);
@@ -63,11 +82,16 @@ class MoyenPaiementController extends AbstractController
         return $this->renderForm('moyen_paiement/edit.html.twig', [
             'moyen_paiement' => $moyenPaiement,
             'form' => $form,
+            'categories' => $categorieProduitRepository->findAll()
+
         ]);
     }
 
     #[Route('/{id}', name: 'app_moyen_paiement_delete', methods: ['POST'])]
-    public function delete(Request $request, MoyenPaiement $moyenPaiement, MoyenPaiementRepository $moyenPaiementRepository): Response
+    public function delete(Request $request, MoyenPaiement $moyenPaiement, MoyenPaiementRepository $moyenPaiementRepository,
+                           CategorieProduitRepository $categorieProduitRepository
+
+    ): Response
     {
         if ($this->isCsrfTokenValid('delete'.$moyenPaiement->getId(), $request->request->get('_token'))) {
             $moyenPaiementRepository->remove($moyenPaiement, true);

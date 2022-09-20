@@ -3,91 +3,111 @@
 {% block title %}Hello CheckoutController!{% endblock %}
 
 {% block body %}
-<div>
     <div>
-        <h3>Informations de la commande</h3>
-        <table class="table">
-            <thead>
+        <div>
+            <h3>Informations de la commande</h3>
+            <table class="table">
+                <thead>
                 <tr>
                     <th>Produit</th>
                     <th>Prix</th>
                     <th>Quantité</th>
                     <th>Total</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 {# je boucle sur tous les élémpents du panier pour les afficher #}
                 {% for element in dataPanier %}
-                <tr>
-                    <td>{{ element.produit.nom }}</td>
-                    <td class="text-end">{{ element.produit.price }} €</td>
-                    <td>{{ element.quantite }}</td>
-                    <td class="text-end">{{ element.quantite * element.produit.price }} €</td>
-                </tr>
+                    <tr>
+                        <td>{{ element.produit.titre }}</td>
+                        <td class="text-end">{{ element.produit.prix }} €</td>
+                        <td>{{ element.quantite }}</td>
+                        <td class="text-end">{{ element.quantite * element.produit.prix }} €</td>
+                    </tr>
                 {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                </tbody>
+            </table>
+        </div>
+        {#              Si l'utilisateur est  connecté on affiche les infos         #}
+        {% if app.user  %}
+            <div>
+                <h3>Informations personnelles</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ app.user.email }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
-    <div>
-        <h3>Informations personnelles</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ app.user.email }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div>
-        <h3>Adresse de livraison</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Adresse</th>
-                    <th>Ville</th>
-                    <th>Code postal</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    {% for element in 
-            app.user.getAdresses() %}
-                    <td>{{ element.adresse }}</td>
-                    <td>{{ element.Commune }}</td>
-                    <td>{{ element.CodePostale }}</td>
+            <div>
+                <h3>Adresse de livraison</h3>
+                {#          Si lutilisateur à des adresses, on les affiches pour qu'il puisse en selectionner une  #}
+                {% if app.user.getAdresses() | length > 0  %}
+                    <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Adresse</th>
+                        <th>Ville</th>
+                        <th>Code postal</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        {% for element in
+                            app.user.getAdresses() %}
+                            <td>{{ element.adresse }}</td>
+                            <td>{{ element.Commune }}</td>
+                            <td>{{ element.CodePostale }}</td>
+                        {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
+                {# créer une liste déroulante pour pouvoir selectionner l'adresse de livraison #}
+                <select name="addresse">
+                    {% for element in
+                        app.user.getAdresses() %}
+                        <option value={{element.id}}>
+                            {{element.adresse}}
+                        </option>
                     {% endfor %}
-                </tr>
-            </tbody>
-        </table>
-        {# créer une liste déroulante pour pouvoir selectionner l'adresse de livraison #}
-        <select name="addresse">
-            {% for element in 
-            app.user.getAdresses() %}
-            <option value={{element.id}}>
-                {{element.adresse}}
-            </option>
-            {% endfor %}
-
-        </select>
+                </select>
+                {% else %}
+                    {#              Sinon on lui propose d'en creer une nouvelle            #}
+                <a href={{ path('app_adresse_new') }}>Créer une nouvelle adresse</a>
+                {% endif %}
+            </div>
+            <div>
+                <h3>Moyen de paiement</h3>
+                <select name="moyenPaiement">
+                    <option value="paypal">Paypal</option>
+                    <option value="mastercard">MasterCard</option>
+                    <option value="visa">Visa</option>
+                    <option value="sepa">SEPA</option>
+                </select>
+            </div>
+            {#              Si l'utilisateur a des adresse on affiche le bouton commande pour pas qu'il n'ai la possibilite de cliquer le bouton
+                s'il na aucune adresse enregistrée
+            #}
+            {% if app.user.getAdresses() | length > 0 %}
+            <a href={{path('app_checkout_process_payment')}}>
+                Passez commande
+            </a>
+            {% endif %}
+        {% else %}
+            {#              Si l'utilisateur n'est pas connecté on lui demande de se connecter#}
+            <div>
+                <p>Vous devez vous connecter pour pouvoir passer commande.</p>
+                <a class="btn-success" href={{ path('login') }}>
+                    <p>Se connecter</p>
+                </a>
+            </div>
+        {% endif %}
     </div>
-    <div>
-    <h3>Moyen de paiement</h3>
-           <select name="moyenPaiement">
-            <option value="paypal">Paypal</option>
-            <option value="mastercard">MasterCard</option>
-            <option value="visa">Visa</option>
-            <option value="sepa">SEPA</option>
-        </select>
-    </div>
-    <a href={{path('app_checkout_process_payment')}}>
-        Passez commande
-    </a>
-</div>
 {% endblock %}

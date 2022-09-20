@@ -15,13 +15,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProduitsController extends AbstractController
 {
     #[Route('/', name: 'app_produits_index', methods: ['GET'])]
-    public function index(ProduitsRepository $produitsRepository): Response
+    public function index(ProduitsRepository $produitsRepository,  CategorieProduitRepository $categorieProduitRepository): Response
     {
+
         return $this->render('produits/index.html.twig', [
             'produits' => $produitsRepository->findAll(),
         ]);
     }
-    
+
     #[Route('/{category}', name: 'app_produits_index_by_category', methods: ['GET'])]
     // cette fonction vas nous permettre de récupérer tous lesproduits de chaqque categorie
     public function showByCategory(ProduitsRepository $produitsRepository, $category, CategorieProduitRepository $categorieProduitRepository): Response
@@ -30,6 +31,7 @@ class ProduitsController extends AbstractController
 
         return $this->render('produits/index.html.twig', [
             'produits' => $categorieProduitRepository->findOneBy(['id' => $category])->getProduits(),
+            'categories' => $categorieProduitRepository->findAll()
         ]);
     }
     #[Route('/new', name: 'app_produits_new', methods: ['GET', 'POST'])]

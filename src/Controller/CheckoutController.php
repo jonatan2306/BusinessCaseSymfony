@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Commandes;
+use App\Repository\CategorieProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,15 +17,15 @@ use Doctrine\ORM\EntityManagerInterface;
 class CheckoutController extends AbstractController
 {
     #[Route('/checkout', name: 'app_checkout')]
-    public function index(SessionInterface $session, ProduitsRepository $produitsRepository): Response
+    public function index(SessionInterface $session, ProduitsRepository $produitsRepository, CategorieProduitRepository $categorieProduitRepository): Response
     {
         $panier = $session->get('panier', []);
-        
+
         $dataPanier = [];
         $total = 0;
-        // on créer un tableau dans lequel on vas stochker e ifférent propduits ajouter 
+        // on créer un tableau dans lequel on vas stochker e ifférent propduits ajouter
         foreach($panier as $id => $quantite){
-            // $pruduct stocke un par un chaque produit ajouter 
+            // $pruduct stocke un par un chaque produit ajouter
             $product = $produitsRepository->find($id);
             // $datapanier sert a mettre les éléments et reformater nos données
             $dataPanier[] = [
@@ -34,8 +35,10 @@ class CheckoutController extends AbstractController
             // cette variable calcul le prix de la quantité de tous les produits
             $total += $product->getPrix() * $quantite;
         }
+        $categories = $categorieProduitRepository->findAll();
+
         // le "compact() créer un tableau et reprend la variable data"
-        return $this->render('checkout/index.html.twig', compact("dataPanier", "total"));
+        return $this->render('checkout/index.html.twig', compact("dataPanier", "total", "categories"));
     }
 
     #[Route('/checkout/payment', name: 'app_checkout_process_payment')]
@@ -46,9 +49,9 @@ class CheckoutController extends AbstractController
         $panier = $session->get('panier', []);
         $dataPanier = [];
         $total = 0;
-        // on créer un tableau dans lequel on vas stochker e ifférent propduits ajouter 
+        // on créer un tableau dans lequel on vas stochker e ifférent propduits ajouter
         foreach($panier as $id => $quantite){
-            // $pruduct stocke un par un chaque produit ajouter 
+            // $pruduct stocke un par un chaque produit ajouter
             $product = $produitsRepository->find($id);
             // $datapanier sert a mettre les éléments et reformater nos données
             $dataPanier[] = [
@@ -79,7 +82,7 @@ class CheckoutController extends AbstractController
         }
         $em->persist($commandes);
         $em->flush();
-        
+
         return $this->render('checkout/index.html.twig', compact("dataPanier", "total"));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CategorieProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,15 +13,15 @@ use App\Repository\ProduitsRepository;
 class BasketController extends AbstractController
 {
     #[Route('/basket', name: 'app_basket')]
-    public function index(SessionInterface $session, ProduitsRepository $produitsRepository): Response
+    public function index(SessionInterface $session, ProduitsRepository $produitsRepository, CategorieProduitRepository $categorieProduitRepository): Response
     {
         $panier = $session->get('panier', []);
 
         $dataPanier = [];
         $total = 0;
-        // on créer un tableau dans lequel on vas stochker e ifférent propduits ajouter 
+        // on créer un tableau dans lequel on vas stochker e ifférent propduits ajouter
         foreach($panier as $id => $quantite){
-            // $pruduct stocke un par un chaque produit ajouter 
+            // $pruduct stocke un par un chaque produit ajouter
             $product = $produitsRepository->find($id);
             // $datapanier sert a mettre les éléments et reformater nos données
             $dataPanier[] = [
@@ -30,7 +31,8 @@ class BasketController extends AbstractController
             // cette variable calcul le prix de la quantité de tous les produits
             $total += $product->getPrix() * $quantite;
         }
-        return $this->render('basket/index.html.twig', compact("dataPanier", "total"));
+        $categories = $categorieProduitRepository->findAll();
+        return $this->render('basket/index.html.twig', compact("dataPanier", "total", "categories"));
     }
     // ette fonction sert a ajouter un produit au panier
     #[Route('/basket/add/{id}', name: 'app_basket_add')]
@@ -59,7 +61,7 @@ class BasketController extends AbstractController
         if(!empty($panier[$id])){
             // si le nombre de produit dans le panier et supérieur a 1 alor je décrémente
             if($panier[$id] > 1){
-                $panier[$id]--;    
+                $panier[$id]--;
             }else{
                 // sinon je suprime le panier
                 unset($panier[$id]);
@@ -85,7 +87,7 @@ class BasketController extends AbstractController
 
        return $this->redirectToRoute("app_basket");
     }
-    
+
     #[Route('/basket/delete', name: 'app_basket_delete_all')]
     public function deleteAll(SessionInterface $session)
     {
