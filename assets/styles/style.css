@@ -1,28 +1,18 @@
-/* LES IMPORTS 
+/* LES IMPORTS
 -------------------------------------------  */
-/* bootstrap */
-@import "bootstrap/css/bootstrap.min.css";
-
-@import "account/index.html.twig";
-@import "home/_banners.html.twig";
-@import "home/carousel.html.twig";
-@import "home/index.html.twig";
-@import "marques/index.html.twig";
-@import "moyen_paiement/index.html.twig";
-@import "produits/index.html.twig";
-@import "reduction/index.html.twig";
 
 
-/* Fonts 
+
+/* Fonts
 ------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');
 
 
 :root {
-    /* VARIABLES 
+    /* VARIABLES
     ---------------------------------------------------------------------------------------------------------------------------------- */
-    /* FONT 
+    /* FONT
     ------------------------------------ */
     /* Font du logo */
     --font-logo: 'Gochi Hand', cursive;
@@ -45,7 +35,7 @@
     --breakpoint-xl: 1280px;
 }
 
-/* TEXT FORMAT 
+/* TEXT FORMAT
 ------------------------------------------------------------------------------------------------------------------------------------  */
 body {
     font-family: var( --font-sans-serif);
@@ -82,9 +72,9 @@ a, a:visited {
     text-decoration: none;
 }
 
-/* COMPONENTS 
+/* COMPONENTS
 ------------------------------------------------------------------------------------------------------------------------------------- */
-/* MENU 
+/* MENU
 -----------------  */
 
 nav {
@@ -122,7 +112,6 @@ nav ul a:hover {
 }
 
 /* section#chiens {
-%
 }
 
 section#chats {
@@ -131,62 +120,62 @@ section#chats {
 
 /* Logo */
 .logo {
-	display: inline-block;
-	color: var(--pink);
-	font-family: var(--font-logo);
-	font-size: 1.8rem;
+    display: inline-block;
+    color: var(--pink);
+    font-family: var(--font-logo);
+    font-size: 1.8rem;
 }
 
-/* TWITTER 
+/* TWITTER
 ---------------------------------------------------------------------------- */
 /* HOVER */
 .social a.tw, .social.social-dark a.tw:hover {
-    background-image: url("img/icons/twitter-black.png");
+    background-image: url("../../public/icons/twitter-black.png");
     background-color: var(--purple);
 }
 /* NORMAL */
 .social a.tw:hover, .social.social-dark a.tw {
-    background-image: url("img/icons/twitter.png");
+    background-image: url("../../public/icons/twitter.png");
     background-color: var(--pink);
 }
 
-/* FACEBOOK 
+/* FACEBOOK
 ---------------------------------------------------------------------------- */
 /* HOVER */
 .social a.fb, .social.social-dark a.fb:hover {
-    background-image: url("img/icons/facebook-black.png");
+    background-image: url("../../public/icons/facebook-black.png");
     background-size: 30%;
     background-color: var(--purple);
 }
 /* NORMAL */
 .social a.fb:hover, .social.social-dark a.fb {
-    background-image: url("img/icons/facebook.png");
+    background-image: url("../../public/icons/facebook.png");
     background-size: 30%;
     background-color: var(--pink);
 }
 
-/* PINTEREST 
+/* PINTEREST
 ---------------------------------------------------------------------------- */
 /* HOVER */
 .social a.pt, .social.social-dark a.pt:hover {
-    background-image: url("img/icons/pinterest-black.png");
+    background-image: url("../../public/icons/pinterest-black.png");
     background-color: var(--purple);
 }
 /* NORMAL */
 .social a.pt:hover, .social.social-dark a.pt {
-    background-image: url("img/icons/pinterest.png");
+    background-image: url("../../public/icons/pinterest.png");
     background-color: var(--pink);
 }
 
-/* GOOGLE PLUS 
+/* GOOGLE PLUS
 ---------------------------------------------------------------------------- */
 /* HOVER */
 .social a.gp, .social.social-dark a.gp:hover {
-    background-image: url("img/icons/google+-black.png");
+    background-image: url("../../public/icons/google+-black.png");
     background-color: var(--purple);
 }
 /* NORMAL */
 .social a.gp:hover, .social.social-dark a.gp {
-    background-image: url("img/icons/google+.png");
+    background-image: url("../../public/icons/google+.png");
     background-color: var(--pink);
 }
