@@ -179,3 +179,15 @@ section#chats {
     background-image: url("../../public/icons/google+.png");
     background-color: var(--pink);
 }
+
+/*           HOME SECTION           */
+
+.section-desc {
+    position: relative;
+    top: -50%;
+    color: white;
+}
+.section-desc > p
+{
+    color: white;
+}

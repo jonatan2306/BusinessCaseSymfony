@@ -4,27 +4,67 @@
 
 {% block body %}
 
-{% include 'home/_banners.html.twig' %}
-{% include 'home/_carousel.html.twig' %}
-<section class=" py-4 py-lg-5 position-relative">
-  <div class="container pt-xl-3 pb-3 pb-lg-5">
-    <div class="row">
-      <div class="col-12 text-center">
-        <div class="h1 mb-3 mb-lg-2">
-          Nous sélectionnons le meilleur pour votre pour votre <span>chien</span>
-        </div>
-      </div>
-    </div>
-    <div class="row pt-0 py-xl-5">
-      <div class="cat w-100 d-flex">
-        <div class="col px-2 px-xl-4 pb-4">
+  {% include 'home/_banners.html.twig' %}
+  {% include 'home/_carousel.html.twig' %}
 
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="text-center">
+          <img alt="shiba-inu" class="w-100 rounded-5" src={{ asset('img/shiba-inu-1904871__340.jpg')}}>
+          <div class="section-desc">
+            <h3>Alimentation pour chien</h3>
+            <p>
+              Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet,
+              Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet
+              ,Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet ,Lorem ipsum dolor sit amet
+            </p>
+            <button class="btn btn-success">En savoir plus</button>
+
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-{# section pour les chiens #}
+  </section>
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="text-center">
+          <img alt="shiba-inu" class="w-100 rounded-5" src={{ asset('img/cat-3177825_960_720.jpg')}}>
+          <div class="section-desc">
+            <h3>Alimentation pour chat</h3>
+            <p>
+              Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet,
+              Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet
+              ,Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet ,Lorem ipsum dolor sit amet
+            </p>
+            <button class="btn btn-success">En savoir plus</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="text-center">
+          <img alt="shiba-inu" class="w-100 rounded-5" src={{ asset('img/istockphoto-1180215295-612x612.jpg')}}>
+          <div class="section-desc">
+            <h3>Envoyer votre animal dans l'espace</h3>
+            <p>
+              Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet,
+              Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet
+              ,Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet ,Lorem ipsum dolor sit amet
+            </p>
+            <button class="btn btn-success">En savoir plus</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {#
+  #}{# section pour les chiens #}{#
 <section>
   <section id="chiens">
     <div class="container">
@@ -40,72 +80,69 @@
       </div>
     </div>
   </section>
-  {# section pour les chats #}
-  <section>
-    <section id="chat">
-      <div class="container">
-        <div class="row">
-        <div class="col-12">
-        <img src="..." alt="image de chat">
-          <h2>Voici notre gamme de produit pour les chats</h2>
-          <p>It is a long established fact that a reader will be distracted by the readable content of a page when
-            looking
-            at its layout.</p>
-          <a href="..." class="btn btn-outline-light">en savoir plus</a>
-        </div>
-
-        </div>
+#}{# section pour les chats #}{#
+<section>
+  <section id="chat">
+    <div class="container">
+      <div class="row">
+      <div class="col-12">
+      <img src="..." alt="image de chat">
+        <h2>Voici notre gamme de produit pour les chats</h2>
+        <p>It is a long established fact that a reader will be distracted by the readable content of a page when
+          looking
+          at its layout.</p>
+        <a href="..." class="btn btn-outline-light">en savoir plus</a>
       </div>
-    </section>
-    {# section du voyage dans l'espace #}
-    <section id="envoyer votre animal de compagnie dans l'espace">
-      <div class="container">
-        <div class="row">
-        <div class="col-12">
-        <img src="..." alt="image de voyage dans l'espace">
-          <h2>Définir le voyage idéale pour votre animal de compagnie</h2>
-          <p>It is a long established fact that a reader will be distracted by the readable content of a page when
-            looking
-            at its layout.</p>
-          <a href="..." class="btn btn-outline-light">en savoir plus</a>
-        </div>
-        </div>
-      </div>
-    </section>
-    {# section assurance client #}
-    <section id="Réassurance client">
-      <h2>Avec nous nous vous assurons</h2>
-      <p>Lorem ipsum dolor sit amet, composi.</p>
-      <div class="container-flex">
-        <div>
-          <img src="asset/icons/" alt="">
-          <h3>Réassurance Clients</h3>
-          <p>Livraison 24/72h Gratuite à partir de  d’achats en france métropolitaine</p>
-        </div>
-        <div>
-          <img src="asset/icons/" alt="">
-          <h3>Paiement sécurisé</h3>
-          <p>Visa, Mastercard, American Epress, Paypal, Chèque ou virement</p>
 
-        </div>
-        <div>
-          <img src="asset/icons/" alt="">
-          <h3>Satisfaction garantie</h3>
-          <p>Vous pouvez nous retourner vos articles 14 jours après la commande</p>
-        </div>
-        <div>
-          <img src="asset/icons/" alt="">
-          <h3>Produits en stock</h3>
-          <p>Expédition le jour-même pour toute commande passée avant 14h</p>
-        </div>
-         <div>
-          <img src="asset/icons/" alt="">
-          <h3>Tchat 7j/7</h3>
-          <p>Nous répondons à vos questions en direct de 8h30 à 22h30</p>
-        </div>
       </div>
-    </section>
-    <footer>
+    </div>
+  </section>
+#}{# section du voyage dans l'espace #}{#
+<section id="envoyer votre animal de compagnie dans l'espace">
+  <div class="container">
+    <div class="row">
+    <div class="col-12">
+    <img src="..." alt="image de voyage dans l'espace">
+      <h2>Définir le voyage idéale pour votre animal de compagnie</h2>
+      <p>It is a long established fact that a reader will be distracted by the readable content of a page when
+        looking
+        at its layout.</p>
+      <a href="..." class="btn btn-outline-light">en savoir plus</a>
+    </div>
+    </div>
+  </div>
+</section>
+#}{# section assurance client #}{#
+<section id="Réassurance client">
+  <h2>Avec nous nous vous assurons</h2>
+  <p>Lorem ipsum dolor sit amet, composi.</p>
+  <div class="container-flex">
+    <div>
+      <img src="asset/icons/" alt="">
+      <h3>Réassurance Clients</h3>
+      <p>Livraison 24/72h Gratuite à partir de  d’achats en france métropolitaine</p>
+    </div>
+    <div>
+      <img src="asset/icons/" alt="">
+      <h3>Paiement sécurisé</h3>
+      <p>Visa, Mastercard, American Epress, Paypal, Chèque ou virement</p>
 
-    </footer>
-    {% endblock %}
+    </div>
+    <div>
+      <img src="asset/icons/" alt="">
+      <h3>Satisfaction garantie</h3>
+      <p>Vous pouvez nous retourner vos articles 14 jours après la commande</p>
+    </div>
+    <div>
+      <img src="asset/icons/" alt="">
+      <h3>Produits en stock</h3>
+      <p>Expédition le jour-même pour toute commande passée avant 14h</p>
+    </div>
+     <div>
+      <img src="asset/icons/" alt="">
+      <h3>Tchat 7j/7</h3>
+      <p>Nous répondons à vos questions en direct de 8h30 à 22h30</p>
+    </div>
+  </div>
+</section>#}
+{% endblock %}
