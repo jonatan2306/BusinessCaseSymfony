@@ -43,9 +43,12 @@ class CheckoutController extends AbstractController
 
     #[Route('/checkout/payment', name: 'app_checkout_process_payment')]
     public function processPayment(SessionInterface $session,
-     ProduitsRepository $produitsRepository, Commandes $commandes,
-     Request $request, EntityManagerInterface $em, StatutRepository $statutRepository): Response
+                                   ProduitsRepository $produitsRepository,
+                                   Request $request, EntityManagerInterface $em, StatutRepository $statutRepository,
+                                   CategorieProduitRepository $categorieProduitRepository,
+    ): Response
     {
+        $commandes = new Commandes();
         $panier = $session->get('panier', []);
         $dataPanier = [];
         $total = 0;
@@ -58,31 +61,33 @@ class CheckoutController extends AbstractController
                 "produit" => $product,
                 "quantite" => $quantite
             ];
-            // quand on vas procéder a l'achat on vas décrémenté un article a chaque fois qu'on enlève un article
-            $panier->setQuantite($product->getQuantite() - 1);
-            // "em" correspond a l'entité manager
-            $em->persist($panier);
-            $em->flush();
+            /*   // quand on vas procéder a l'achat on vas décrémenté un article a chaque fois qu'on enlève un article
+               $panier->setQuantite($product->getQuantite() - 1);
+               // "em" correspond a l'entité manager
+               $em->persist($panier);
+               $em->flush();*/
             // cette variable calcul le prix de la quantité de tous les produits
             $total += $product->getPrix() * $quantite;
         }
         // si la commandes est correcte j'affiche le statut 1 "valider"
         $status = $statutRepository->find('1');
         $commandes
-        ->setPrix($total)
-        ->setMoyenPaiement($request->request->get('moyenPaiement'))
-        ->setUser($this->getUser())
-        ->setStatut($status)
-        ->setAdresse($request->request->get('addresse'))
-        ->setCreatedAt(new DateTime())
-        ->setUpdatedAt(new DateTime());
-        foreach($dataPanier as $id => $quantite){
-            $product = $produitsRepository->find($id);
+            ->setPrix($total)
+            ->setMoyenPaiement($request->request->get('moyenPaiement'))
+            ->setUser($this->getUser())
+            ->setStatut($status)
+            ->setAdresse($request->request->get('addresse'))
+            ->setCreatedAt(new DateTime())
+            ->setUpdatedAt(new DateTime());
+        foreach($dataPanier as $quantite){
+            $product = $produitsRepository->find($quantite['produit']->getId());
             $commandes->addProduit($product);
         }
         $em->persist($commandes);
         $em->flush();
+        $categories = $categorieProduitRepository->findAll();
+        $session->remove("panier");
 
-        return $this->render('checkout/index.html.twig', compact("dataPanier", "total"));
+        return $this->render('checkout/checkout_completed.html.twig', compact("dataPanier", "total", "categories"));
     }
 }

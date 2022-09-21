@@ -36,6 +36,8 @@ class AdresseController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // on set lutilisateur connecté
+            $adresse->setUser($this->getUser());
             $adresseRepository->add($adresse, true);
 
             return $this->redirectToRoute('app_adresse_index', [], Response::HTTP_SEE_OTHER);
