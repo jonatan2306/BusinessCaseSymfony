@@ -18,8 +18,18 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@ant-design/colors": "^6.0.0",
+        "@ant-design/icons": "^4.7.0",
+        "@emotion/react": "^11.10.4",
+        "@emotion/styled": "^11.10.4",
+        "@mui/material": "^5.10.6",
+        "lodash": "^4.17.21",
         "prop-types": "^15.8.1",
         "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "react-copy-to-clipboard": "^5.1.0",
+        "react-dom": "^18.2.0",
+        "react-element-to-jsx-string": "^15.0.0",
+        "react-router-dom": "^6.4.1",
+        "react-syntax-highlighter": "^15.5.0"
     }
 }
