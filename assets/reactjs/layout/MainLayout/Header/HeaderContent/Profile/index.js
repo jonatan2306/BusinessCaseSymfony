@@ -1,5 +1,7 @@
-import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
+
+
+import PropTypes from 'prop-types';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -63,6 +65,7 @@ const Profile = () => {
     const anchorRef = useRef(null);
     const [open, setOpen] = useState(false);
     const handleToggle = () => {
+        console.log('handle')
         setOpen((prevOpen) => !prevOpen);
     };
 
