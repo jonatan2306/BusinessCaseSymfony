@@ -8,7 +8,7 @@
             <a class="nav-link active" aria-current="page" href={{path('app_home')}}>Accueil</a>
           </li>
           {% for categorie in categories %}
-            {# si les categories cotient une sous-categorie alors j'affiche la categorie uniquement #}
+            {# si les categories contient une sous-categorie alors j'affiche la categorie uniquement #}
             <li class="nav-item">
               <a class="nav-link"
                  href={{path('app_produits_index_by_category', {category: categorie.id})}}>{{categorie.nom}}</a>

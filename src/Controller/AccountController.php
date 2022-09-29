@@ -12,8 +12,8 @@ class AccountController extends AbstractController
 {
     #[Route('/account', name: 'app_account')]
     public function index(AdresseRepository $adresseRepository,
-                          CategorieProduitRepository $categorieProduitRepository
-    ): Response
+        CategorieProduitRepository $categorieProduitRepository
+): Response
     {
         return $this->render('account/index.html.twig', [
             'adresses' => $adresseRepository->findAll(),

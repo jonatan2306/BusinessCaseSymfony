@@ -16,20 +16,19 @@ class MoyenPaiementController extends AbstractController
 {
     #[Route('/', name: 'app_moyen_paiement_index', methods: ['GET'])]
     public function index(MoyenPaiementRepository $moyenPaiementRepository,
-                          CategorieProduitRepository $categorieProduitRepository
+        CategorieProduitRepository $categorieProduitRepository
 
     ): Response
     {
         return $this->render('moyen_paiement/index.html.twig', [
             'moyen_paiements' => $moyenPaiementRepository->findAll(),
             'categories' => $categorieProduitRepository->findAll()
-
         ]);
     }
 
     #[Route('/new', name: 'app_moyen_paiement_new', methods: ['GET', 'POST'])]
     public function new(Request $request, MoyenPaiementRepository $moyenPaiementRepository,
-                        CategorieProduitRepository $categorieProduitRepository
+        CategorieProduitRepository $categorieProduitRepository
 
     ): Response
     {
@@ -53,7 +52,7 @@ class MoyenPaiementController extends AbstractController
 
     #[Route('/{id}', name: 'app_moyen_paiement_show', methods: ['GET'])]
     public function show(MoyenPaiement $moyenPaiement,
-                         CategorieProduitRepository $categorieProduitRepository
+        CategorieProduitRepository $categorieProduitRepository
 
     ): Response
     {
@@ -66,7 +65,7 @@ class MoyenPaiementController extends AbstractController
 
     #[Route('/{id}/edit', name: 'app_moyen_paiement_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, MoyenPaiement $moyenPaiement, MoyenPaiementRepository $moyenPaiementRepository,
-                         CategorieProduitRepository $categorieProduitRepository
+        CategorieProduitRepository $categorieProduitRepository
 
     ): Response
     {
@@ -89,7 +88,7 @@ class MoyenPaiementController extends AbstractController
 
     #[Route('/{id}', name: 'app_moyen_paiement_delete', methods: ['POST'])]
     public function delete(Request $request, MoyenPaiement $moyenPaiement, MoyenPaiementRepository $moyenPaiementRepository,
-                           CategorieProduitRepository $categorieProduitRepository
+        CategorieProduitRepository $categorieProduitRepository
 
     ): Response
     {

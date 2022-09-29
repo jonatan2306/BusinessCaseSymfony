@@ -1,5 +1,8 @@
 /* LES IMPORTS
 -------------------------------------------  */
+
+
+
 /* Fonts
 ------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
@@ -40,6 +43,7 @@ body {
     color: var(--black);
     padding: 0;
     margin: 0;
+    display: block;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -123,62 +127,24 @@ section#chats {
     font-size: 1.8rem;
 }
 
-/* TWITTER
----------------------------------------------------------------------------- */
-/* HOVER */
-.social a.tw, .social.social-dark a.tw:hover {
-    background-image: url("../../public/icons/twitter-black.png");
-    background-color: var(--purple);
-}
-/* NORMAL */
-.social a.tw:hover, .social.social-dark a.tw {
-    background-image: url("../../public/icons/twitter.png");
-    background-color: var(--pink);
-}
-
-/* FACEBOOK
----------------------------------------------------------------------------- */
-/* HOVER */
-.social a.fb, .social.social-dark a.fb:hover {
-    background-image: url("../../public/icons/facebook-black.png");
-    background-size: 30%;
-    background-color: var(--purple);
-}
-/* NORMAL */
-.social a.fb:hover, .social.social-dark a.fb {
-    background-image: url("../../public/icons/facebook.png");
-    background-size: 30%;
-    background-color: var(--pink);
-}
-
-/* PINTEREST
----------------------------------------------------------------------------- */
-/* HOVER */
-.social a.pt, .social.social-dark a.pt:hover {
-    background-image: url("../../public/icons/pinterest-black.png");
-    background-color: var(--purple);
-}
-/* NORMAL */
-.social a.pt:hover, .social.social-dark a.pt {
-    background-image: url("../../public/icons/pinterest.png");
-    background-color: var(--pink);
-}
-
-/* GOOGLE PLUS
----------------------------------------------------------------------------- */
-/* HOVER */
-.social a.gp, .social.social-dark a.gp:hover {
-    background-image: url("../../public/icons/google+-black.png");
-    background-color: var(--purple);
-}
-/* NORMAL */
-.social a.gp:hover, .social.social-dark a.gp {
-    background-image: url("../../public/icons/google+.png");
-    background-color: var(--pink);
-}
-
 /*           HOME SECTION           */
-
+/* NAVBAR */
+.bg-white {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity))!important;
+}
+.py-3{
+    padding-top: 1rem!important;
+    padding-bottom: 1rem!important;
+}
+.shadow-sm{
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075)!important;
+}
+@media (min-width:992px)
+.navbar-expend-lg {
+    flex-wrap: nowrap;
+    
+}
 .section-desc {
     position: relative;
     top: -50%;
@@ -188,3 +154,4 @@ section#chats {
 {
     color: white;
 }
+
