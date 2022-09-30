@@ -15,8 +15,6 @@ class Panier
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $delaiLivraison = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $nombreProduit = null;
@@ -24,11 +22,9 @@ class Panier
     #[ORM\Column(nullable: true)]
     private ?float $prixPanier = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?float $prixProduit = null;
-
-
-
+    #[ORM\Column(length: 255)]
+    private ?string $status = null;
+    
 
     public function getId(): ?int
     {
@@ -79,6 +75,18 @@ class Panier
     public function setPrixProduit(?float $prixProduit): self
     {
         $this->prixProduit = $prixProduit;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
