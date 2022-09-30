@@ -2,13 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Panier;
 use App\Repository\CategorieProduitRepository;
+use App\Repository\PanierRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Entity\Produits;
 use App\Repository\ProduitsRepository;
+use function PHPUnit\Framework\isEmpty;
+use function Symfony\Component\Translation\t;
 
 class BasketController extends AbstractController
 {
@@ -35,12 +39,39 @@ class BasketController extends AbstractController
         return $this->render('basket/index.html.twig', compact("dataPanier", "total", "categories"));
     }
     // ette fonction sert a ajouter un produit au panier
+
+    /**
+     * @throws \Exception
+     */
     #[Route('/basket/add/{id}', name: 'app_basket_add')]
-    public function add(Produits $product, SessionInterface $session){
+    public function add(Produits $product, SessionInterface $session, PanierRepository $panierRepository){
         // On récupère le panier actuel
+        $getUniqCodePanier = $session->get("panierCode", []);
+        // cree un code unique pour chaque panier
         $panier = $session->get("panier", []);
         $id = $product->getId();
+        $prix = $product->getPrix();
+        $uniqCodePanier =  random_int(100000, 999999);
 
+        $panierEntity = new Panier();
+
+        // si le panier code est vide, un nouveau panier est fait donc on ajoute en bdd
+        // sinon on met a jour le panier existant
+        if(empty($getUniqCodePanier)){
+            $session->set("panierCode", $uniqCodePanier);
+            $panierEntity
+                ->setStatus('en_cours')
+                ->setPrixPanier($prix)
+                ->setNombreProduit(1)
+                ->setPanierCode($uniqCodePanier);
+        }else{
+            $panierExist = $panierRepository->findOneBy(['panierCode' => $session->get("panierCode")]);
+            $panierEntity
+                ->setNombreProduit($panierExist->getNombreProduit() + 1)
+                ->setPrixPanier($panierExist->getPrixPanier() + $prix);
+        }
+        $panierRepository->add($panierEntity, true);
+        // on met le code unique dans la session du panier de l'utilisateur
         if(!empty($panier[$id])){
             $panier[$id]++;
         }else {
@@ -66,11 +97,11 @@ class BasketController extends AbstractController
                 // sinon je suprime le panier
                 unset($panier[$id]);
             }
-    }
-       // On sauvegarde dans la session
-       $session->set("panier", $panier);
+        }
+        // On sauvegarde dans la session
+        $session->set("panier", $panier);
 
-       return $this->redirectToRoute("app_basket");
+        return $this->redirectToRoute("app_basket");
     }
     // cette function sert a suprimer un élément du panier avec n'importe quel quantite
     #[Route('/basket/delete/{id}', name: 'app_basket_delete')]
@@ -82,16 +113,25 @@ class BasketController extends AbstractController
         if(!empty($panier[$id])){
             unset($panier[$id]);
         }
-       // On sauvegarde dans la session
-       $session->set("panier", $panier);
+        // On sauvegarde dans la session
+        $session->set("panier", $panier);
 
-       return $this->redirectToRoute("app_basket");
+        return $this->redirectToRoute("app_basket");
     }
 
     #[Route('/basket/delete', name: 'app_basket_delete_all')]
-    public function deleteAll(SessionInterface $session)
+    public function deleteAll(SessionInterface $session, PanierRepository $panierRepository)
     {
+        // on va cherche le panier en cours pour le modifier
+        $panierEntity = $panierRepository->findOneBy(['panierCode' => $session->get("panierCode")]);
+        if(!empty($panierEntity)){
+            $panierEntity
+                ->setStatus('abandon');
+            $panierRepository->add($panierEntity, true);
+        }
+
         $session->remove("panier");
+        $session->remove("panierCode");
 
         return $this->redirectToRoute("app_basket");
     }

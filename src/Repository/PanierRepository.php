@@ -39,6 +39,14 @@ class PanierRepository extends ServiceEntityRepository
         }
     }
 
+    public function getSumPrixPanier()
+    {
+        $total = $this->createQueryBuilder('panier')
+            ->select('sum(panier.prixPanier)')
+            ->getQuery()
+            ->getOneOrNullResult();
+        return $total;
+    }
 //    /**
 //     * @return Panier[] Returns an array of Panier objects
 //     */

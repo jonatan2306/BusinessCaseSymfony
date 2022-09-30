@@ -24,23 +24,14 @@ class Panier
 
     #[ORM\Column(length: 255)]
     private ?string $status = null;
-    
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $panierCode = null;
+
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getDelaiLivraison(): ?string
-    {
-        return $this->delaiLivraison;
-    }
-
-    public function setDelaiLivraison(?string $delaiLivraison): self
-    {
-        $this->delaiLivraison = $delaiLivraison;
-
-        return $this;
     }
 
     public function getNombreProduit(): ?string
@@ -67,18 +58,6 @@ class Panier
         return $this;
     }
 
-    public function getPrixProduit(): ?float
-    {
-        return $this->prixProduit;
-    }
-
-    public function setPrixProduit(?float $prixProduit): self
-    {
-        $this->prixProduit = $prixProduit;
-
-        return $this;
-    }
-
     public function getStatus(): ?string
     {
         return $this->status;
@@ -89,5 +68,22 @@ class Panier
         $this->status = $status;
 
         return $this;
+    }
+
+    public function getPanierCode(): ?string
+    {
+        return $this->panierCode;
+    }
+
+    public function setPanierCode(string $panierCode): self
+    {
+        $this->panierCode = $panierCode;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getPanierCode();
     }
 }
