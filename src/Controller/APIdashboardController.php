@@ -9,20 +9,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Validator\Constraints\Date;
 
 
 /*
 Montant Total des ventes
-- Nb de nouveaux clients
 - % de récurrence de commandes clients (un client déjà inscrit à re-commander,
 rapport entre le nb de commandes avec nouveaux clients sur la plage
 sélectionnée et le nb de commandes avec clients existants)
-- % de paniers abandonnées (% de paniers qui n’ont pas été convertis en
-commandes)
 - Nb de visites
 - % de conversion paniers (% entre le nb de visites et le nombre de paniers créés)
-- % de conversion commandes (% entre le nb de paniers et le nombre de
-commandes créées)
 - Total de produits vendus triés par ordre décroissant (Le produit le plus vendu
 sera en tête de liste, afficher le nombre d’unités vendues pour chaque produit)
 */
@@ -36,15 +32,45 @@ class APIdashboardController extends AbstractController
     {
         // get Nb de commandes
         $commandes = $commandesRepository->findAll();
+        // get nb panier
         $paniers = $panierRepository->findAll();
+        // get moyenne prix panier
         $sumPrixPanier = $panierRepository->getSumPrixPanier();
+        // get new client today
+        $newClientTodayNumber = $userRepository->findByRole('ROLE_USER');
+        $nbNewUser = 0;
+        foreach($newClientTodayNumber as $id => $user) {
+            // si la date de creation du compte de l'utilisateur est === 0 on incremente le nombre de new user
+            // ->d pour recuperer la valeur dans lobjet DateTimeImmutable
 
-    // le premier parametre est la donnée, le deuxieme le code status, le troisieme, le header de la requete, le quatrieme verifie si
+            if(date_diff($user->getCreatedAt(), new \DateTimeImmutable())->d === 0){
+                $nbNewUser += 1;
+            }
+        }
+        //  % de récurrence de commandes clients (un client déjà inscrit à re-commander,
+        //rapport entre le nb de commandes avec nouveaux clients sur la plage
+        //sélectionnée et le nb de commandes avec clients existants)
+
+        // % de paniers abandonnées
+        $paniersAbandon = 0;
+        foreach($paniers as $id => $panier) {
+            // on boucle sur notre vairable panier qui contient tous nos panier pour eviter de refaire une requete a la bdd
+            // on verifie quelles paniers son abandonner via le statut "abandon"
+            if($panier->getStatus() === "abandon"){
+                $paniersAbandon += 1;
+            }
+        }
+        /*- % de conversion commandes (% entre le nb de paniers et le nombre de
+            commandes créées)*/
+    // le premier parametr  e est la donnée, le deuxieme le code status, le troisieme, le header de la requete, le quatrieme verifie si
     // on envoie des données en JSON pour que le resultat s'envoi en json ou pas
         return new JsonResponse(json_encode([
             "nombre_commandes" => count($commandes),
             "nombre_paniers" => count($paniers),
-            "panier_moyen" => $sumPrixPanier[1] / count($paniers)
+            "panier_moyen" => $sumPrixPanier[1] / count($paniers),
+            "new_client_today" => $nbNewUser,
+            "panier_abandon" => ($paniersAbandon / count($paniers)) * 100, // (panier abandon / total panier) * 100
+            "conversion_commandes" => (count($paniers) / count($commandes)) * 100, // (panier abandon / total panier) * 100
             ])
             , Response::HTTP_OK, [], true);
     }
