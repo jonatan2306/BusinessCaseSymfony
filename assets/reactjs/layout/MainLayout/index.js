@@ -10,7 +10,8 @@ import {Outlet} from "react-router-dom";
 import Dashboard from "./Dashboard";
 
 // ==============================|| MAIN LAYOUT ||============================== //
-const MainLayout = () => {
+const MainLayout = (props) => {
+    const { data } = props
     return (
         <Box sx={{ width: '100%' }}>
             <Box sx={{ display: 'flex', width: '100%' }}>
@@ -20,7 +21,7 @@ const MainLayout = () => {
                 </Box>
             </Box>
             <Container>
-                <Dashboard />
+                <Dashboard data={data} />
             </Container>
         </Box>
     );

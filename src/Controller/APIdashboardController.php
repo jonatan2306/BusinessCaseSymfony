@@ -36,6 +36,7 @@ class APIdashboardController extends AbstractController
         $paniers = $panierRepository->findAll();
         // get moyenne prix panier
         $sumPrixPanier = $panierRepository->getSumPrixPanier();
+     
         // get new client today
         $newClientTodayNumber = $userRepository->findByRole('ROLE_USER');
         $nbNewUser = 0;
@@ -67,10 +68,10 @@ class APIdashboardController extends AbstractController
         return new JsonResponse(json_encode([
             "nombre_commandes" => count($commandes),
             "nombre_paniers" => count($paniers),
-            "panier_moyen" => $sumPrixPanier[1] / count($paniers),
+            "panier_moyen" => $sumPrixPanier[1] !== null ? $sumPrixPanier[1] / count($paniers) : 0,
             "new_client_today" => $nbNewUser,
-            "panier_abandon" => ($paniersAbandon / count($paniers)) * 100, // (panier abandon / total panier) * 100
-            "conversion_commandes" => (count($paniers) / count($commandes)) * 100, // (panier abandon / total panier) * 100
+            "panier_abandon" => $paniersAbandon  > 0 ?  ($paniersAbandon / count($paniers)) * 100 : 0, // (panier abandon / total panier) * 100
+            "conversion_commandes" => count($paniers) > 0 || count($commandes) > 0 ? (count($paniers) / count($commandes)) * 100 : 0, // (panier abandon / total panier) * 100
             ])
             , Response::HTTP_OK, [], true);
     }

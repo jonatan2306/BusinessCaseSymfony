@@ -65,10 +65,11 @@ const status = [
 
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
-const DashboardDefault = () => {
+const DashboardDefault = (props) => {
+    const { data } = props
     const [value, setValue] = useState('today');
     const [slot, setSlot] = useState('week');
-
+    console.log('DashboardDefault', data)
     return (
         <Grid container rowSpacing={4.5} columnSpacing={2.75}>
             {/* row 1 */}
@@ -76,22 +77,22 @@ const DashboardDefault = () => {
                 <Typography variant="h5">Dashboard</Typography>
             </Grid>
             <Grid item xs={2} sm={4} md={4}>
-                <AnalyticEcommerce title="Montant Total des ventes" count="4,42,236" percentage={59.3} extra="35,000" />
+                <AnalyticEcommerce title="% Conversion commandes" count={data.conversion_commandes} />
             </Grid>
             <Grid item xs={2} sm={4} md={4}>
-                <AnalyticEcommerce title="Nombres de commandes" count="78,250" percentage={70.5} extra="8,900" />
+                <AnalyticEcommerce title="Nombres de commandes" count={data.nombre_commandes}  />
             </Grid>
             <Grid item xs={2} sm={4} md={4}>
-                <AnalyticEcommerce title="Nombre de panier" count="18,800" percentage={27.4} isLoss color="warning" extra="1,943" />
+                <AnalyticEcommerce title="Nombre de panier" count={data.nombre_paniers}  />
             </Grid>
             <Grid item xs={2} sm={4} md={4}>
-                <AnalyticEcommerce title="Valeur panier moyen" count="18,800" percentage={27.4} isLoss color="warning" extra="1,943" />
+                <AnalyticEcommerce title="Valeur panier moyen" count={data.panier_moyen} />
             </Grid>
             <Grid item xs={2} sm={4} md={4}>
-                <AnalyticEcommerce title="Nombre de clients" count="18,800" percentage={27.4} isLoss color="warning" extra="1,943" />
+                <AnalyticEcommerce title="Nombres de panier abandonnés" count={data.panier_abandon} />
             </Grid>
             <Grid item xs={2} sm={4} md={4}>
-                <AnalyticEcommerce title="Nouveaux client" count="18,800" percentage={27.4} isLoss color="warning" extra="1,943" />
+                <AnalyticEcommerce title="Nouveaux client" count={data.new_client_today}  />
             </Grid>
             <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
 
