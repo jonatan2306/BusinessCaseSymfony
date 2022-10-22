@@ -77,7 +77,7 @@ const DashboardDefault = (props) => {
                 <Typography variant="h5">Dashboard</Typography>
             </Grid>
             <Grid item xs={2} sm={4} md={4}>
-                <AnalyticEcommerce title="% Conversion commandes" count={data.conversion_commandes} />
+                <AnalyticEcommerce title="% Conversion commandes" count={parseFloat(data.conversion_commandes).toFixed(2)} />
             </Grid>
             <Grid item xs={2} sm={4} md={4}>
                 <AnalyticEcommerce title="Nombres de commandes" count={data.nombre_commandes}  />
@@ -86,13 +86,19 @@ const DashboardDefault = (props) => {
                 <AnalyticEcommerce title="Nombre de panier" count={data.nombre_paniers}  />
             </Grid>
             <Grid item xs={2} sm={4} md={4}>
-                <AnalyticEcommerce title="Valeur panier moyen" count={data.panier_moyen} />
+                <AnalyticEcommerce title="Valeur panier moyen (€)" count={data.panier_moyen} />
             </Grid>
             <Grid item xs={2} sm={4} md={4}>
-                <AnalyticEcommerce title="Nombres de panier abandonnés" count={data.panier_abandon} />
+                <AnalyticEcommerce title="% de panier abandonnés" count={data.panier_abandon} />
             </Grid>
             <Grid item xs={2} sm={4} md={4}>
                 <AnalyticEcommerce title="Nouveaux client" count={data.new_client_today}  />
+            </Grid>
+            <Grid item xs={2} sm={4} md={4}>
+                <AnalyticEcommerce title="Montant total des ventes (€)" count={data.montant_total_ventes}  />
+            </Grid>
+            <Grid item xs={2} sm={4} md={4}>
+                <AnalyticEcommerce title="Nombre de visiteurs" count={data.counter_visitor}  />
             </Grid>
             <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
 

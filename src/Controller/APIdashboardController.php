@@ -13,7 +13,6 @@ use Symfony\Component\Validator\Constraints\Date;
 
 
 /*
-Montant Total des ventes
 - % de récurrence de commandes clients (un client déjà inscrit à re-commander,
 rapport entre le nb de commandes avec nouveaux clients sur la plage
 sélectionnée et le nb de commandes avec clients existants)
@@ -36,7 +35,6 @@ class APIdashboardController extends AbstractController
         $paniers = $panierRepository->findAll();
         // get moyenne prix panier
         $sumPrixPanier = $panierRepository->getSumPrixPanier();
-     
         // get new client today
         $newClientTodayNumber = $userRepository->findByRole('ROLE_USER');
         $nbNewUser = 0;
@@ -61,11 +59,22 @@ class APIdashboardController extends AbstractController
                 $paniersAbandon += 1;
             }
         }
+        // montant total des ventes
+        $totalVentes = 0;
+        foreach($commandes as $id => $order) {
+        // on boucle sur notre vairable commande qui contient toutes nos commandes po
+            // on additionne les prix          
+            $totalVentes += $order->getPrix();
+       
+        }
+
+
         /*- % de conversion commandes (% entre le nb de paniers et le nombre de
             commandes créées)*/
     // le premier parametr  e est la donnée, le deuxieme le code status, le troisieme, le header de la requete, le quatrieme verifie si
     // on envoie des données en JSON pour que le resultat s'envoi en json ou pas
         return new JsonResponse(json_encode([
+            "montant_total_ventes" => $totalVentes,
             "nombre_commandes" => count($commandes),
             "nombre_paniers" => count($paniers),
             "panier_moyen" => $sumPrixPanier[1] !== null ? $sumPrixPanier[1] / count($paniers) : 0,
