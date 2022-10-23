@@ -103,7 +103,7 @@ const DashboardDefault = (props) => {
             <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
 
             {/* row 2 */}
-            <Grid item xs={12} md={7} lg={8}>
+            {/* <Grid item xs={12} md={7} lg={8}>
                 <Grid container alignItems="center" justifyContent="space-between">
                     <Grid item>
                         <Typography variant="h5">Visites sur le web</Typography>
@@ -134,8 +134,8 @@ const DashboardDefault = (props) => {
                         <IncomeAreaChart slot={slot} />
                     </Box>
                 </MainCard>
-            </Grid>
-            <Grid item xs={12} md={5} lg={4}>
+            </Grid> */}
+            {/* <Grid item xs={12} md={5} lg={4}>
                 <Grid container alignItems="center" justifyContent="space-between">
                     <Grid item>
                         <Typography variant="h5">Visites en magasin</Typography>
@@ -153,7 +153,7 @@ const DashboardDefault = (props) => {
                     </Box>
                     <MonthlyBarChart />
                 </MainCard>
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={12} md={5} lg={4}>
                 <MainCard sx={{ mt: 2 }}>

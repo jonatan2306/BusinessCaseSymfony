@@ -31,7 +31,7 @@ class HomeController extends AbstractController
             $session->set("visitor", $_SERVER['REMOTE_ADDR']);
 
         }
-        dd($currentSession);
+        
         return $this->render('home/index.html.twig', [
             'categories' => $categorieProduitRepository->findAll()
         ]);

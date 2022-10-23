@@ -6,9 +6,21 @@ import MainLayout from "./layout/MainLayout";
 const App = () => {
     const [data, setData] = useState({});
     // get data from api symfony 
+ 
+    useEffect(() => {
+        getApiDashboard();
+    }, [])
     const getApiDashboard = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:8000/api', {method: 'GET', mode: 'no-cors'});
+            const response = await fetch('http://127.0.0.1:8000/api',{
+                method: 'GET',
+            //   mode: 'no-cors', 
+              headers: {
+                // 'Content-Type': 'application/json',
+                Accept: 'application/json',
+              },
+             
+            });
             const result = await response.json();
             setData(result)
         } catch(e){
@@ -16,10 +28,6 @@ const App = () => {
         }
         
     }
-    useEffect(() => {
-        getApiDashboard();
-    }, [])
-
     return (
         <ThemeCustomization>
             <MainLayout data={data} />
