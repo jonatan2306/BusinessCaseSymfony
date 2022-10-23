@@ -10,7 +10,8 @@
 /vendor/
 /migrations/
 ###< symfony/framework-bundle ###
-
+package-lock.json
+yarn.lock
 ###> phpunit/phpunit ###
 /phpunit.xml
 .phpunit.result.cache

@@ -14,12 +14,9 @@ const App = () => {
         try {
             const response = await fetch('http://127.0.0.1:8000/api',{
                 method: 'GET',
-            //   mode: 'no-cors', 
               headers: {
-                // 'Content-Type': 'application/json',
                 Accept: 'application/json',
               },
-             
             });
             const result = await response.json();
             setData(result)
