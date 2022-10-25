@@ -1,0 +1,18 @@
+.product-row{
+    width: 325px;
+    height: auto;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 2px 0px 15px 5px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.product-text-container {
+    text-align: center;
+}
+.product-text-container > p {
+    font-size: 16px;
+    font-weight: 600;
+}
