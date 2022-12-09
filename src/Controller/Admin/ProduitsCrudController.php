@@ -44,7 +44,9 @@ class ProduitsCrudController extends AbstractCrudController
             TextField::new('titre'),
             TextEditorField::new('description'),
             ImageField::new('photoProduit')
+            //  on appelle la classe static (self::) qui vas me permettre un fichier
             ->setBasePath(self::PRODUCTS_BASE_PATH)
+            //  on appelle la classe static (self::)  qui vas me permettre d'uploader un dossier
             ->setUploadDir(self::PRODUCTS_UPLOAD_DIR)
             ->setSortable(false),
             MoneyField::new('prix')->setCurrency('EUR'),

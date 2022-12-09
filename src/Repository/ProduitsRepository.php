@@ -2,10 +2,12 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\Produits;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 /**
  * @extends ServiceEntityRepository<Produits>
  *
@@ -16,9 +18,10 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ProduitsRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, Produits::class);
+        $this->paginator = $paginator;
     }
 
     public function add(Produits $entity, bool $flush = false): void
@@ -39,6 +42,31 @@ class ProduitsRepository extends ServiceEntityRepository
         }
     }
 
+//  pour chaque recherche il vas y avoir 6 produits par page
+    public function findSearch(SearchData $search): PaginationInterface
+    {
+        $query = $this
+            ->createQueryBuilder('p')
+            ->select('p', 'cp')
+            ->join('p.Categorie', 'cp');
+
+        if(!empty($search->category)){
+            $query = $query
+                ->andWhere('cp.id IN (:Categorie)')
+                ->setParameter('Categorie', $search->category);
+        }
+
+
+        // $query = $this
+        // ->createQueryBuilder('v')
+        // ->from('App\Entity\Produits', 'p');
+        $query = $query->getQuery();
+        return $this->paginator->paginate(
+            $query->getResult(),
+            $search->page,
+            6
+        );
+    }
 //    /**
 //     * @return Produits[] Returns an array of Produits objects
 //     */

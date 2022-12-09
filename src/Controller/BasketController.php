@@ -17,13 +17,14 @@ use function Symfony\Component\Translation\t;
 class BasketController extends AbstractController
 {
     #[Route('/basket', name: 'app_basket')]
-    public function index(SessionInterface $session, ProduitsRepository $produitsRepository, CategorieProduitRepository $categorieProduitRepository): Response
+    public function index(SessionInterface $session, ProduitsRepository $produitsRepository,
+    CategorieProduitRepository $categorieProduitRepository): Response
     {
         $panier = $session->get('panier', []);
 
         $dataPanier = [];
         $total = 0;
-        // on créer un tableau dans lequel on vas stochker e ifférent propduits ajouter
+        // on créer un tableau dans lequel on vas stocker les différents propduits ajouter
         foreach($panier as $id => $quantite){
             // $pruduct stocke un par un chaque produit ajouter
             $product = $produitsRepository->find($id);
@@ -60,15 +61,16 @@ class BasketController extends AbstractController
         if(empty($getUniqCodePanier)){
             $session->set("panierCode", $uniqCodePanier);
             $panierEntity
-                ->setStatus('en_cours')
                 ->setPrixPanier($prix)
+                ->setStatus('en_cours')
                 ->setNombreProduit(1)
                 ->setPanierCode($uniqCodePanier);
         }else{
             $panierExist = $panierRepository->findOneBy(['panierCode' => $session->get("panierCode")]);
             $panierEntity
                 ->setNombreProduit($panierExist->getNombreProduit() + 1)
-                ->setPrixPanier($panierExist->getPrixPanier() + $prix);
+                ->setStatus('en_cours')
+                ->setPrixPanier($panierExist->getPrixPanier() + $prix); 
         }
         $panierRepository->add($panierEntity, true);
         // on met le code unique dans la session du panier de l'utilisateur

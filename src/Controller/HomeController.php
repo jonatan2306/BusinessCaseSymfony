@@ -36,14 +36,14 @@ class HomeController extends AbstractController
             'categories' => $categorieProduitRepository->findAll()
         ]);
     }
-    public function getClientIps()
+    #[Route('/space', name: 'app_home_space')]
+    public function space(
+        CategorieProduitRepository $categorieProduitRepository,
+    ): Response
     {
-        $ip = $this->server->get('REMOTE_ADDR');
-
-        if (!$this->isFromTrustedProxy()) {
-            return [$ip];
-        }
-
-        return $this->getTrustedValues(self::HEADER_X_FORWARDED_FOR, $ip) ?: [$ip];
+        
+        return $this->render('space/index.html.twig', [
+            'categories' => $categorieProduitRepository->findAll()
+        ]);
     }
 }

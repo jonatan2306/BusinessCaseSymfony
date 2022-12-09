@@ -1,8 +1,14 @@
 security:
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
+    # --------------------------------------
+    # DANS CE FICHIER EST INS2R2 LES INFORMATION DE CONNEXION
+    
+    # hashage du mot de passe
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+
+    #  permet de configurer tout ce qui en relation avec la session utilisateur
     providers:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
@@ -14,11 +20,14 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+        # le form_login qui vas permettre de gérer tout ce qui est (login_path: login) et (check_path: login) qui vont permettre de configurer la route de la connection 
             lazy: true
             provider: app_user_provider
             form_login:
+            # qui vont permettre de configurer la route de la connection 
                 login_path: login
                 check_path: login
+                # le (enable_csrf: true) qui vas créer un jeton qui vas permettre de sécuriser le formulaire avec un jeton (pris en charge par symfony)
                 enable_csrf: true
             logout:
                 path: logout
@@ -30,6 +39,7 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
+    # donne un role admin ou user
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/dashboard, roles: ROLE_ADMIN }

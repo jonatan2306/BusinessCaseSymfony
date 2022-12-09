@@ -19,7 +19,7 @@
               Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet
               ,Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet ,Lorem ipsum dolor sit amet
             </p>
-            <button class="btn btn-success">En savoir plus</button>
+            <button class="btn btn-success" href="">En savoir plus</button>
           </div>
         </div>
       </div>
@@ -56,92 +56,13 @@
               Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet
               ,Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet ,Lorem ipsum dolor sit amet
             </p>
-            <button class="btn btn-success">En savoir plus</button>
+            <button class="btn btn-success">
+            <a href={{path('app_home_space')}}>
+            En savoir plus</a>
+            </button>
           </div>
         </div>
       </div>
     </div>
   </section>
-  {#
-  #}{# section pour les chiens #}{#
-<section>
-  <section id="chiens">
-    <div class="container">
-      <div class="row">
-      <div class="col-12">
-                <img src="..." alt="image de chien">
-        <h2>Voici notre gamme de produit pour les chiens</h2>
-        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking
-          at its layout.</p>
-        <a href="..." class="btn btn-outline-light">en savoir plus</a>
-      </div>
-
-      </div>
-    </div>
-  </section>
-#}{# section pour les chats #}{#
-<section>
-  <section id="chat">
-    <div class="container">
-      <div class="row">
-      <div class="col-12">
-      <img src="..." alt="image de chat">
-        <h2>Voici notre gamme de produit pour les chats</h2>
-        <p>It is a long established fact that a reader will be distracted by the readable content of a page when
-          looking
-          at its layout.</p>
-        <a href="..." class="btn btn-outline-light">en savoir plus</a>
-      </div>
-
-      </div>
-    </div>
-  </section>
-#}{# section du voyage dans l'espace #}{#
-<section id="envoyer votre animal de compagnie dans l'espace">
-  <div class="container">
-    <div class="row">
-    <div class="col-12">
-    <img src="..." alt="image de voyage dans l'espace">
-      <h2>Définir le voyage idéale pour votre animal de compagnie</h2>
-      <p>It is a long established fact that a reader will be distracted by the readable content of a page when
-        looking
-        at its layout.</p>
-      <a href="..." class="btn btn-outline-light">en savoir plus</a>
-    </div>
-    </div>
-  </div>
-</section>
-#}{# section assurance client #}{#
-<section id="Réassurance client">
-  <h2>Avec nous nous vous assurons</h2>
-  <p>Lorem ipsum dolor sit amet, composi.</p>
-  <div class="container-flex">
-    <div>
-      <img src="asset/icons/" alt="">
-      <h3>Réassurance Clients</h3>
-      <p>Livraison 24/72h Gratuite à partir de  d’achats en france métropolitaine</p>
-    </div>
-    <div>
-      <img src="asset/icons/" alt="">
-      <h3>Paiement sécurisé</h3>
-      <p>Visa, Mastercard, American Epress, Paypal, Chèque ou virement</p>
-
-    </div>
-    <div>
-      <img src="asset/icons/" alt="">
-      <h3>Satisfaction garantie</h3>
-      <p>Vous pouvez nous retourner vos articles 14 jours après la commande</p>
-    </div>
-    <div>
-      <img src="asset/icons/" alt="">
-      <h3>Produits en stock</h3>
-      <p>Expédition le jour-même pour toute commande passée avant 14h</p>
-    </div>
-     <div>
-      <img src="asset/icons/" alt="">
-      <h3>Tchat 7j/7</h3>
-      <p>Nous répondons à vos questions en direct de 8h30 à 22h30</p>
-    </div>
-  </div>
-</section>#}
 {% endblock %}

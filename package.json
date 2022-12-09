@@ -24,6 +24,7 @@
         "@emotion/styled": "^11.10.4",
         "@mui/material": "^5.10.6",
         "apexcharts": "^3.35.5",
+        "encore": "^0.0.30-beta",
         "lodash": "^4.17.21",
         "prop-types": "^15.8.1",
         "react": "^18.2.0",
